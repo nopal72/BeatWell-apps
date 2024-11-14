@@ -64,4 +64,8 @@ dependencies {
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
 }
