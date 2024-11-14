@@ -10,4 +10,14 @@
     <string name="card_desctiption">card_desctiption</string>
     <string name="text_heading">Heading</string>
     <string name="text_tagline">lorem ipsum dor ismi</string>
+    <string name="exercise_heading">Rekomendasi aktivitas</string>
+    <string name="exercise_tagline">Beberapa aktivitas yang bisa anda lakukan</string>
+    <string name="food_heading">Rekomendasi Makanan</string>
+    <string name="food_tagline">Beberapa rekomendasi makanan yang cocok dengan kondisi kamu!</string>
+    <string name="news_heading">Berita kesehatan</string>
+    <string name="news_tagline">Informasi Terkini dan Terpercaya untuk Gaya Hidup Sehat, Inspirasi Harian</string>
+    <string name="history_heading">History</string>
+    <string name="history_tagline">Lihat riwayat pengecekan resiko jantung koroner anda</string>
+    <string name="result_heading">Hasil analisis</string>
+    <string name="result_tagline">Berikut adalah prediksi dari hasil analisis kamu</string>
 </resources>
