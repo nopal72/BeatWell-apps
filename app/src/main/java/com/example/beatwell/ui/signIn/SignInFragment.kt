@@ -1,4 +1,4 @@
-package com.example.beatwell.ui.login
+package com.example.beatwell.ui.signIn
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.beatwell.R
 
-class LoginFragment : Fragment() {
+class SignInFragment : Fragment() {
 
     companion object {
-        fun newInstance() = LoginFragment()
+        fun newInstance() = SignInFragment()
     }
 
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 }
