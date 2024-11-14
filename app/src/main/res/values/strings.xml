@@ -8,4 +8,6 @@
     <string name="card_image">card image</string>
     <string name="card_title">Card Title</string>
     <string name="card_desctiption">card_desctiption</string>
+    <string name="text_heading">Heading</string>
+    <string name="text_tagline">lorem ipsum dor ismi</string>
 </resources>
