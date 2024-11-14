@@ -20,4 +20,10 @@
     <string name="history_tagline">Lihat riwayat pengecekan resiko jantung koroner anda</string>
     <string name="result_heading">Hasil analisis</string>
     <string name="result_tagline">Berikut adalah prediksi dari hasil analisis kamu</string>
+    <string name="title_exercise">Exercise</string>
+    <string name="title_food">Food</string>
+    <string name="title_news">News</string>
+    <string name="title_history">history</string>
+    <string name="setting_heading">Setting</string>
+    <string name="title_setting">Setting</string>
 </resources>

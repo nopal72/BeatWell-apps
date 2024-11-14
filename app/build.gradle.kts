@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.beatwell"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.beatwell"
