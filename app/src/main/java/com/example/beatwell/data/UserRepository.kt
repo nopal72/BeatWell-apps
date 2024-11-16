@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
+import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.utils.AppExecutors
@@ -55,5 +56,16 @@ class UserRepository private constructor(
             })
         }
         return result
+    }
+
+    companion object {
+        @Volatile
+        private var instance: UserRepository? = null
+        fun getInstance(
+            userPreference: UserPreference
+        ): UserRepository =
+            instance ?: synchronized(this) {
+                instance ?: UserRepository(userPreference, ApiConfig.getApiService(), AppExecutors())
+            }.also { instance = it }
     }
 }
