@@ -1,5 +1,6 @@
 package com.example.beatwell.ui.exercise
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.beatwell.R
+import com.example.beatwell.databinding.FragmentExerciseBinding
+import com.example.beatwell.ui.ViewModelFactory
+import com.example.beatwell.ui.signIn.SignInActivity
 
 class ExerciseFragment : Fragment() {
 
@@ -14,7 +18,10 @@ class ExerciseFragment : Fragment() {
         fun newInstance() = ExerciseFragment()
     }
 
-    private val viewModel: ExerciseViewModel by viewModels()
+    private val viewModel: ExerciseViewModel by viewModels{
+        ViewModelFactory.getInstance(requireContext())
+    }
+    private lateinit var binding: FragmentExerciseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +33,13 @@ class ExerciseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return inflater.inflate(R.layout.fragment_exercise, container, false)
+        binding = FragmentExerciseBinding.inflate(inflater, container, false)
+
+        binding.btnLogin.setOnClickListener {
+            val intent = Intent(requireContext(), SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        return binding.root
     }
 }

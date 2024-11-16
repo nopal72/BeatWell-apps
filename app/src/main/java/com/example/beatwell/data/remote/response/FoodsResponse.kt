@@ -8,17 +8,17 @@ import com.google.gson.annotations.SerializedName
 data class FoodsResponse(
 
 	@field:SerializedName("body")
-	val body: Body,
+	val foodsBody: FoodsBody,
 
 	@field:SerializedName("status")
 	val status: Int
 ) : Parcelable
 
 @Parcelize
-data class Body(
+data class FoodsBody(
 
 	@field:SerializedName("data")
-	val data: List<DataItem>,
+	val data: List<FoodDataItem>,
 
 	@field:SerializedName("message")
 	val message: String,
@@ -28,7 +28,7 @@ data class Body(
 ) : Parcelable
 
 @Parcelize
-data class DataItem(
+data class FoodDataItem(
 
 	@field:SerializedName("name")
 	val name: String,

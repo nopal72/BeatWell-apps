@@ -7,6 +7,7 @@ import com.example.beatwell.data.pref.UserPreference
 import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.FoodsResponse
+import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.utils.AppExecutors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +52,31 @@ class UserRepository private constructor(
                 }
 
                 override fun onFailure(call: Call<FoodsResponse>, t: Throwable) {
+                    result.value = Result.Error(t.toString())
+                }
+            })
+        }
+        return result
+    }
+
+    fun getHistory(): LiveData<Result<HistoryResponse>>{
+        val result = MutableLiveData<Result<HistoryResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            val client = apiService.getHistory()
+            client.enqueue(object : Callback<HistoryResponse>{
+                override fun onResponse(
+                    call: Call<HistoryResponse>,
+                    response: Response<HistoryResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val body = response.body()
+                        body?.let {
+                            result.value = Result.Success(it)
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
                     result.value = Result.Error(t.toString())
                 }
             })
