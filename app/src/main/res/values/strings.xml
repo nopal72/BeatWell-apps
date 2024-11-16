@@ -23,4 +23,5 @@
     <string name="title_history">history</string>
     <string name="setting_heading">Setting</string>
     <string name="title_setting">Setting</string>
+    <string name="app_tagline">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</string>
 </resources>
