@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
     // TODO REPLACE BASE URL WITH YOUR OWN
-    private const val BASE_URL ="https://express-prisma-oauth2.vercel.app"
+    private const val BASE_URL ="http://192.168.144.221"
 
     fun getApiService(): ApiService {
         val loggingInterceptor =

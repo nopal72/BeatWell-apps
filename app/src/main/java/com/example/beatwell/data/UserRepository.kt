@@ -1,5 +1,6 @@
 package com.example.beatwell.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.beatwell.data.pref.UserModel
@@ -8,6 +9,7 @@ import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
+import com.example.beatwell.data.remote.response.LoginResponse
 import com.example.beatwell.utils.AppExecutors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +34,46 @@ class UserRepository private constructor(
     suspend fun logout(){
         userPreference.logout()
     }
+
+    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
+        val result = MutableLiveData<Result<LoginResponse>>()
+        result.value = Result.Loading
+
+        val client = apiService.login(email, password)
+        client.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    Log.d("UserRepository", "onResponse: $responseBody")
+                    if (!responseBody?.error!!) {
+                        Log.d("UserRepository", "onResponse.loginData: ${responseBody.loginData}")
+                        val loginData = responseBody.loginData
+                        val user = UserModel(
+                            loginData.name,
+                            loginData.email,
+                            loginData.token,
+                            true
+                        )
+                        CoroutineScope(Dispatchers.IO).launch {
+                            userPreference.saveSession(user)
+                        }
+                        result.value = Result.Success(responseBody)
+                    } else {
+                        result.value = Result.Error("Response body is null")
+                    }
+                } else {
+                    result.value = Result.Error("Failed with status code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                result.value = Result.Error(t.message.toString())
+            }
+        })
+
+        return result
+    }
+
 
     fun getFoods(): LiveData<Result<FoodsResponse>> {
         val result = MutableLiveData<Result<FoodsResponse>>()

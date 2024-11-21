@@ -24,4 +24,11 @@
     <string name="setting_heading">Setting</string>
     <string name="title_setting">Setting</string>
     <string name="app_tagline">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</string>
+    <string name="error_password">The password must be more than 8 characters!</string>
+    <string name="login">login</string>
+    <string name="text_signup">dont have an account yet? <b>signup</b></string>
+    <string name="password">password</string>
+    <string name="email_is_invalid">email is invalid</string>
+    <string name="email">email</string>
+    <string name="sign_out">sign out</string>
 </resources>

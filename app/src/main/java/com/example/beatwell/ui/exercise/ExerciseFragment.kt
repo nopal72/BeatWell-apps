@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.beatwell.R
 import com.example.beatwell.databinding.FragmentExerciseBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.signIn.SignInActivity
@@ -35,10 +34,6 @@ class ExerciseFragment : Fragment() {
     ): View {
         binding = FragmentExerciseBinding.inflate(inflater, container, false)
 
-        binding.btnLogin.setOnClickListener {
-            val intent = Intent(requireContext(), SignInActivity::class.java)
-            startActivity(intent)
-        }
 
         return binding.root
     }
