@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.beatwell.R
 import com.example.beatwell.databinding.FragmentSettingBinding
 import com.example.beatwell.ui.ViewModelFactory
-import com.example.beatwell.ui.signIn.SignInActivity
+import com.example.beatwell.ui.login.LoginActivity
 
 class SettingFragment : Fragment() {
 
@@ -30,7 +29,7 @@ class SettingFragment : Fragment() {
         binding = FragmentSettingBinding.inflate(inflater, container, false)
         binding.btnSignOut.setOnClickListener {
             viewModel.logOut()
-            startActivity(Intent(requireContext(), SignInActivity::class.java))
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
         return binding.root
     }

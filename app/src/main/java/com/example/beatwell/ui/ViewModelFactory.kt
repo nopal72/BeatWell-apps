@@ -8,12 +8,11 @@ import com.example.beatwell.data.UserRepository
 import com.example.beatwell.di.Injection
 import com.example.beatwell.ui.exercise.ExerciseViewModel
 import com.example.beatwell.ui.food.FoodViewModel
-import com.example.beatwell.ui.history.HistoryFragment
 import com.example.beatwell.ui.history.HistoryViewModel
 import com.example.beatwell.ui.result.ResultViewModel
 import com.example.beatwell.ui.setting.SettingViewModel
-import com.example.beatwell.ui.signIn.SignInViewModel
-import com.example.beatwell.ui.signUp.SignUpViewModel
+import com.example.beatwell.ui.login.SignInViewModel
+import com.example.beatwell.ui.register.SignUpViewModel
 import com.example.beatwell.ui.userData.UserDataViewModel
 
 class ViewModelFactory(private val userRepository: UserRepository): ViewModelProvider.NewInstanceFactory() {

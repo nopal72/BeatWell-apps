@@ -1,4 +1,4 @@
-package com.example.beatwell.ui.signIn
+package com.example.beatwell.ui.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,28 +7,28 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.beatwell.MainActivity
-import com.example.beatwell.R
-import com.example.beatwell.databinding.ActivitySignInBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.data.Result
+import com.example.beatwell.databinding.ActivityLoginBinding
+import com.example.beatwell.ui.register.RegisterActivity
 import kotlinx.coroutines.launch
 
-class SignInActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val viewModel: SignInViewModel by viewModels {
         ViewModelFactory.getInstance(this)
     }
-    private lateinit var binding: ActivitySignInBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         lifecycleScope.launch {
-            viewModel.getSession().observe(this@SignInActivity) { user ->
+            viewModel.getSession().observe(this@LoginActivity) { user ->
                 if (user.isLogin) {
-                    startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 }
             }
@@ -40,18 +40,24 @@ class SignInActivity : AppCompatActivity() {
             viewModel.login(email, password).observe(this) { result ->
                 when (result) {
                     is Result.Success -> {
-                        Log.d("SignInActivity", "onCreate: ${result.data}")
+                        binding.progressBar.visibility = android.view.View.GONE
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     }
-
                     is Result.Error -> {
-                        Log.d("SignInActivity", "onCreate: ${result.error}")
+                        binding.progressBar.visibility = android.view.View.GONE
+                        Log.e("Login Error", result.error)
                     }
-
                     is Result.Loading -> {
-                        Log.d("SignInActivity", "onCreate: Loading")
+                        binding.progressBar.visibility = android.view.View.VISIBLE
                     }
                 }
             }
         }
+
+        binding.textSignup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
     }
 }

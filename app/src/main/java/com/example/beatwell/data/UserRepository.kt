@@ -10,11 +10,13 @@ import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
+import com.example.beatwell.data.remote.response.RegisterResponse
 import com.example.beatwell.utils.AppExecutors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,6 +76,40 @@ class UserRepository private constructor(
         return result
     }
 
+    fun register(name: String, email: String, password: String): LiveData<Result<RegisterResponse>> {
+        val result = MutableLiveData<Result<RegisterResponse>>()
+        result.value = Result.Loading
+        val client = apiService.register(name,email,password)
+        client.enqueue(object : Callback<RegisterResponse>{
+            override fun onResponse(
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
+            ){
+                if (response.isSuccessful){
+                    val body = response.body()
+                    body?.let {
+                        if (!it.error){
+                            result.value = Result.Success(it)
+                        }else{
+                            result.value = Result.Error(it.message)
+                        }
+                    }
+                }else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = errorBody?.let {
+                        JSONObject(it).getString("message")
+                    } ?: "Unknown error"
+                    result.value = Result.Error(errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                result.value = Result.Error(t.toString())
+            }
+
+        })
+        return result
+    }
 
     fun getFoods(): LiveData<Result<FoodsResponse>> {
         val result = MutableLiveData<Result<FoodsResponse>>()

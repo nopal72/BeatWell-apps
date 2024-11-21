@@ -1,4 +1,4 @@
-package com.example.beatwell.ui.signIn
+package com.example.beatwell.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

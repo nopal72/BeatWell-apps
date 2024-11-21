@@ -31,4 +31,10 @@
     <string name="email_is_invalid">email is invalid</string>
     <string name="email">email</string>
     <string name="sign_out">sign out</string>
+    <string name="text_verify_password">verify password</string>
+    <string name="sign_up">sign up</string>
+    <string name="text_login">already have an account? <b>login</b></string>
+    <string name="type_password">enter password</string>
+    <string name="name">name</string>
+    <string name="register_success">registration successful</string>
 </resources>

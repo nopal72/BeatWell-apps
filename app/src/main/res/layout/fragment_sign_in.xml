@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     style="@style/MainFrame"
     android:padding="16dp"
-    tools:context=".ui.signIn.SignInFragment">
+    tools:context=".ui.login.SignInFragment">
 
     <TextView
         android:id="@+id/app_name"
