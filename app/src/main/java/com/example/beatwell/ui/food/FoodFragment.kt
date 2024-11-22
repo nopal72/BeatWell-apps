@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beatwell.databinding.FragmentFoodBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.data.Result
-import com.example.beatwell.data.remote.response.FoodDataItem
+import com.example.beatwell.data.remote.response.FoodItem
 
 class FoodFragment : Fragment() {
 
@@ -41,7 +41,7 @@ class FoodFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    setFoodsData(result.data.foodsBody.data)
+                    setFoodsData(result.data.foodItem)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -52,7 +52,7 @@ class FoodFragment : Fragment() {
         return binding.root
     }
 
-    private fun setFoodsData(data: List<FoodDataItem>) {
+    private fun setFoodsData(data: List<FoodItem>) {
         adapter = FoodAdapter()
         adapter.submitList(data)
         binding.rvFood.adapter = adapter

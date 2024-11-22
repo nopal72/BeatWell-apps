@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <!-- Base application theme. -->
     <style name="Theme.BeatWell" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -30,7 +30,9 @@
     <style name="MainFrame.Tagline">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
     </style>
 
     <style name="MainFrame.RecyclerView">

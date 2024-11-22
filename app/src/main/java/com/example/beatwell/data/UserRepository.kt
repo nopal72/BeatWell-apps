@@ -115,24 +115,26 @@ class UserRepository private constructor(
         val result = MutableLiveData<Result<FoodsResponse>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
-            val client = apiService.getFoods()
-            client.enqueue(object : Callback<FoodsResponse> {
-                override fun onResponse(
-                    call: Call<FoodsResponse>,
-                    response: Response<FoodsResponse>
-                ) {
-                    if (response.isSuccessful){
-                        val body = response.body()
-                        body?.let {
-                            result.value = Result.Success(it)
+            userPreference.getSession().collect {
+                val client = apiService.getFoods(it.token)
+                client.enqueue(object : Callback<FoodsResponse> {
+                    override fun onResponse(
+                        call: Call<FoodsResponse>,
+                        response: Response<FoodsResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(it)
+                            }
                         }
                     }
-                }
 
-                override fun onFailure(call: Call<FoodsResponse>, t: Throwable) {
-                    result.value = Result.Error(t.toString())
-                }
-            })
+                    override fun onFailure(call: Call<FoodsResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
         }
         return result
     }

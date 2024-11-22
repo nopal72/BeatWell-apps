@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.userData.UserDataFragment"
+    tools:context=".ui.predict.PredictActivity"
     style="@style/MainFrame">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,12 +26,12 @@
             android:id="@+id/layout_age"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_age"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -55,13 +55,13 @@
             android:id="@+id/layout_cigs"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_age">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_cig"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -85,13 +85,13 @@
             android:id="@+id/layout_chol"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_cigs">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_col"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -101,7 +101,7 @@
 
         <TextView
             android:id="@+id/label_sys"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Tekanan darah systolik"
@@ -115,13 +115,13 @@
             android:id="@+id/layout_sys"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_chol">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_sys"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -131,7 +131,7 @@
 
         <TextView
             android:id="@+id/label_dia"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Tekanan darah diastolik"
@@ -145,13 +145,13 @@
             android:id="@+id/layout_dia"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_sys">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_dia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -175,13 +175,13 @@
             android:id="@+id/layout_bmi"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_dia">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_bmi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -205,13 +205,13 @@
             android:id="@+id/layout_heartRate"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_bmi">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_heartRate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -235,13 +235,13 @@
             android:id="@+id/layout_glucose"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_heartRate">
 
-            <com.example.beatwell.ui.customView.CustomEditEmail
+            <EditText
                 android:id="@+id/ed_glucose"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -504,6 +504,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="kirim"
+            android:layout_marginTop="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radio_diabetes"/>

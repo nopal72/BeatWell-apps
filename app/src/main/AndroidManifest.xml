@@ -16,6 +16,9 @@
         android:theme="@style/Theme.BeatWell"
         tools:targetApi="31">
         <activity
+            android:name=".ui.predict.PredictActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity

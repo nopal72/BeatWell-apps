@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.beatwell.data.remote.response.FoodDataItem
+import com.example.beatwell.data.remote.response.FoodItem
 import com.example.beatwell.databinding.ItemCardBinding
 
-class FoodAdapter: ListAdapter<FoodDataItem, FoodAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FoodAdapter: ListAdapter<FoodItem, FoodAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemCardBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: FoodDataItem){
+        fun bind(data: FoodItem){
             binding.cardTitle.text = data.name
-            binding.cardDescription.text = data.recipe
+            binding.cardDescription.text = data.resep
         }
     }
 
@@ -27,11 +27,11 @@ class FoodAdapter: ListAdapter<FoodDataItem, FoodAdapter.MyViewHolder>(DIFF_CALL
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FoodDataItem>() {
-            override fun areContentsTheSame(oldItem: FoodDataItem, newItem: FoodDataItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FoodItem>() {
+            override fun areContentsTheSame(oldItem: FoodItem, newItem: FoodItem): Boolean {
                 return oldItem == newItem
             }
-            override fun areItemsTheSame(oldItem: FoodDataItem, newItem: FoodDataItem): Boolean {
+            override fun areItemsTheSame(oldItem: FoodItem, newItem: FoodItem): Boolean {
                 return oldItem.id == newItem.id
             }
         }

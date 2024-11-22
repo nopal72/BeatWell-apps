@@ -1,5 +1,6 @@
 package com.example.beatwell.ui.exercise
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.beatwell.databinding.FragmentExerciseBinding
 import com.example.beatwell.ui.ViewModelFactory
+import com.example.beatwell.ui.predict.PredictActivity
 
 class ExerciseFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ExerciseFragment()
-    }
 
     private val viewModel: ExerciseViewModel by viewModels{
         ViewModelFactory.getInstance(requireContext())
@@ -32,6 +30,9 @@ class ExerciseFragment : Fragment() {
     ): View {
         binding = FragmentExerciseBinding.inflate(inflater, container, false)
 
+        binding.btnPredict.setOnClickListener {
+            startActivity(Intent(requireContext(), PredictActivity::class.java))
+        }
 
         return binding.root
     }
