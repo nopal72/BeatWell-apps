@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class FoodsResponse(
 
-	@field:SerializedName("data")
+	@field:SerializedName("PredictData")
 	val foodItem: List<FoodItem>,
 
 	@field:SerializedName("message")

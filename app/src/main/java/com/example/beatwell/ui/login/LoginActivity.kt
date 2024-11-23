@@ -37,27 +37,31 @@ class LoginActivity : AppCompatActivity() {
         binding.btnSignIn.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
-            viewModel.login(email, password).observe(this) { result ->
-                when (result) {
-                    is Result.Success -> {
-                        binding.progressBar.visibility = android.view.View.GONE
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }
-                    is Result.Error -> {
-                        binding.progressBar.visibility = android.view.View.GONE
-                        Log.e("Login Error", result.error)
-                    }
-                    is Result.Loading -> {
-                        binding.progressBar.visibility = android.view.View.VISIBLE
-                    }
-                }
-            }
+            login(email, password)
         }
 
         binding.textSignup.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+    }
+
+    private fun login(email: String, password: String) {
+        viewModel.login(email, password).observe(this) { result ->
+            when (result) {
+                is Result.Success -> {
+                    binding.progressBar.visibility = android.view.View.GONE
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                is Result.Error -> {
+                    binding.progressBar.visibility = android.view.View.GONE
+                    Log.e("Login Error", result.error)
+                }
+                is Result.Loading -> {
+                    binding.progressBar.visibility = android.view.View.VISIBLE
+                }
+            }
+        }
     }
 }

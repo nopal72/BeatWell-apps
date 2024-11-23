@@ -3,14 +3,17 @@ package com.example.beatwell.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.beatwell.data.entity.HistoryEntity
+import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
-import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
+import com.example.beatwell.data.remote.response.PredictResponse
 import com.example.beatwell.data.remote.response.RegisterResponse
+import com.example.beatwell.data.room.HistoryDao
 import com.example.beatwell.utils.AppExecutors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +23,15 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class UserRepository private constructor(
-    private val userPreference: UserPreference, private val apiService: ApiService, private val appExecutors: AppExecutors
+    private val userPreference: UserPreference,
+    private val apiService: ApiService,
+    private val appExecutors: AppExecutors,
+    private val historyDao: HistoryDao
 ){
 
     suspend fun saveSession(user: UserModel) {
@@ -111,6 +120,66 @@ class UserRepository private constructor(
         return result
     }
 
+    fun predict(request: PredictRequest): LiveData<Result<PredictResponse>> {
+        val result = MutableLiveData<Result<PredictResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect {user->
+                val client = apiService.predict(
+                    request,
+                    user.token
+                )
+                Log.d("UserRepository", "predict: $request")
+                client.enqueue(object : Callback<PredictResponse>{
+                    override fun onResponse(
+                        call: Call<PredictResponse>,
+                        response: Response<PredictResponse>
+                    ) {
+                       if (response.isSuccessful){
+                           val body = response.body()
+                           body?.let {
+                               if (!it.error){
+                                   val currentDate: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+                                       Date()
+                                   )
+                                   val history = HistoryEntity(
+                                       date = currentDate,
+                                       prediction = it.predictData.persentage,
+                                       gender = request.sex,
+                                       age = request.age,
+                                       cigsPerDay = request.cigsPerday,
+                                       bpMeds = request.BPMeds,
+                                       prevalentStroke = request.prevalentStroke,
+                                       prevalentHyp = request.prevalentHyp,
+                                       diabetes = request.diabetes,
+                                       totChol = request.totChol,
+                                       sysBP = request.sysBP,
+                                       diaBP = request.diaBP,
+                                       bmi = request.BMI,
+                                       heartRate = request.heartRate,
+                                       glucose = request.glucose
+                                   )
+                                   appExecutors.diskIO.execute {
+                                       historyDao.insertHistory(history)
+                                       result.postValue(Result.Success(it))
+                                   }
+                               }else{
+                                   result.value = Result.Error(it.message)
+                               }
+                           }
+                       }else{
+                           result.value = Result.Error(response.message())
+                       }
+                    }
+                    override fun onFailure(call: Call<PredictResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
+        return result
+    }
+
     fun getFoods(): LiveData<Result<FoodsResponse>> {
         val result = MutableLiveData<Result<FoodsResponse>>()
         result.value = Result.Loading
@@ -168,10 +237,17 @@ class UserRepository private constructor(
         @Volatile
         private var instance: UserRepository? = null
         fun getInstance(
-            userPreference: UserPreference
+            userPreference: UserPreference,
+            apiService: ApiService,
+            appExecutors: AppExecutors,
+            historyDao: HistoryDao
         ): UserRepository =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(userPreference, ApiConfig.getApiService(), AppExecutors())
+                instance ?: UserRepository(
+                    userPreference,
+                    apiService,
+                    appExecutors,
+                    historyDao)
             }.also { instance = it }
     }
 }

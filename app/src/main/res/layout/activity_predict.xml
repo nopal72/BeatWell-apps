@@ -92,7 +92,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_cigs">
 
             <EditText
-                android:id="@+id/ed_col"
+                android:id="@+id/ed_chol"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number" />
@@ -272,6 +272,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_glucose">
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radio_pria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -285,6 +286,7 @@
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radio_wanita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -322,6 +324,7 @@
             app:layout_constraintTop_toBottomOf="@+id/radio_gender">
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/BPMeds_true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -335,6 +338,7 @@
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/BPMeds_false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -372,6 +376,7 @@
             app:layout_constraintTop_toBottomOf="@+id/radio_BPMeds">
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/stroke_true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -385,6 +390,7 @@
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/stroke_false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -422,6 +428,7 @@
             app:layout_constraintTop_toBottomOf="@+id/radio_stroke">
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/prevalentHyp_true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -435,6 +442,7 @@
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/prevalentHyp_false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -472,6 +480,7 @@
             app:layout_constraintTop_toBottomOf="@+id/radio_prevalentHyp">
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/diabetes_true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -485,6 +494,7 @@
                 android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/diabetes_false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
