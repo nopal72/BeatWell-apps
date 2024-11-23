@@ -12,8 +12,8 @@ import com.example.beatwell.ui.history.HistoryViewModel
 import com.example.beatwell.ui.result.ResultViewModel
 import com.example.beatwell.ui.setting.SettingViewModel
 import com.example.beatwell.ui.login.SignInViewModel
+import com.example.beatwell.ui.predict.PredictViewModel
 import com.example.beatwell.ui.register.SignUpViewModel
-import com.example.beatwell.ui.userData.UserDataViewModel
 
 class ViewModelFactory(private val userRepository: UserRepository): ViewModelProvider.NewInstanceFactory() {
 
@@ -41,8 +41,8 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
             modelClass.isAssignableFrom(SignUpViewModel::class.java)->{
                 SignUpViewModel(userRepository) as T
             }
-            modelClass.isAssignableFrom(UserDataViewModel::class.java)->{
-                UserDataViewModel(userRepository) as T
+            modelClass.isAssignableFrom(PredictViewModel::class.java)->{
+                PredictViewModel(userRepository) as T
             }
             modelClass.isAssignableFrom(MainViewModel::class.java)->{
                 MainViewModel(userRepository) as T

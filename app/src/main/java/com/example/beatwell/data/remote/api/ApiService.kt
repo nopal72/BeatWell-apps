@@ -1,10 +1,13 @@
 package com.example.beatwell.data.remote.api
 
+import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
+import com.example.beatwell.data.remote.response.PredictResponse
 import com.example.beatwell.data.remote.response.RegisterResponse
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -34,4 +37,10 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Call<RegisterResponse>
+
+    @POST("/prediction")
+    fun predict(
+        @Body request: PredictRequest,
+        @Header("Authorization") token: String
+    ): Call<PredictResponse>
 }
