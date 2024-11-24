@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beatwell.data.Result
-import com.example.beatwell.data.remote.response.HistoryDataItem
+import com.example.beatwell.data.remote.response.HistoryItem
 import com.example.beatwell.databinding.FragmentHistoryBinding
 import com.example.beatwell.ui.ViewModelFactory
 
@@ -41,7 +41,7 @@ class HistoryFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    setHistoryData(result.data.historyBody.data)
+                    setHistoryData(result.data.historyItem)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -52,10 +52,11 @@ class HistoryFragment : Fragment() {
         return binding.root
     }
 
-    private fun setHistoryData(data: List<HistoryDataItem>) {
+    private fun setHistoryData(historyItem: List<HistoryItem>) {
         adapter = HistoryAdapter()
-        adapter.submitList(data)
+        adapter.submitList(historyItem)
         binding.rvHistory.adapter = adapter
     }
+
 
 }

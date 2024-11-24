@@ -1,6 +1,7 @@
 package com.example.beatwell.data.pref
 
 data class UserModel (
+    val userId: String,
     val email: String,
     val name: String,
     val token: String,

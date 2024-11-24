@@ -2,23 +2,33 @@ package com.example.beatwell.data.remote.response
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 @Parcelize
 data class HistoryResponse(
-	val historyBody: HistoryBody,
-	val status: Int
-) : Parcelable
 
-@Parcelize
-data class HistoryDataItem(
-	val lastChecked: String,
-	val id: String,
-	val status: String
-) : Parcelable
+	@field:SerializedName("data")
+	val historyItem: List<HistoryItem>,
 
-@Parcelize
-data class HistoryBody(
-	val data: List<HistoryDataItem>,
+	@field:SerializedName("message")
 	val message: String,
+
+	@field:SerializedName("error")
 	val error: Boolean
+) : Parcelable
+
+@Parcelize
+data class HistoryItem(
+
+	@field:SerializedName("result")
+	val result: Int,
+
+	@field:SerializedName("createdAt")
+	val createdAt: String,
+
+	@field:SerializedName("id")
+	val id: Int,
+
+	@field:SerializedName("userId")
+	val userId: Int
 ) : Parcelable

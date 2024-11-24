@@ -30,8 +30,11 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<FoodDetailResponse>
 
-    @GET("/histories")
-    fun getHistory(): Call<HistoryResponse>
+    @GET("/users/{id}/histories")
+    fun getHistory(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): Call<HistoryResponse>
 
     @FormUrlEncoded
     @POST("/login")

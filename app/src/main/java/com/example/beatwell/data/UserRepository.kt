@@ -62,10 +62,11 @@ class UserRepository private constructor(
                         Log.d("UserRepository", "onResponse.loginData: ${responseBody.loginData}")
                         val loginData = responseBody.loginData
                         val user = UserModel(
-                            loginData.name,
-                            loginData.email,
-                            loginData.token,
-                            true
+                            userId = loginData.id.toString(),
+                            email = loginData.email,
+                            name = loginData.name,
+                            token = loginData.token,
+                            isLogin = true
                         )
                         CoroutineScope(Dispatchers.IO).launch {
                             saveSession(user)
@@ -127,7 +128,7 @@ class UserRepository private constructor(
                     request,
                     user.token
                 )
-                Log.d("UserRepository", "predict: $request")
+                Log.d("UserRepository", "token: ${user.token}")
                 client.enqueue(object : Callback<PredictResponse>{
                     override fun onResponse(
                         call: Call<PredictResponse>,
@@ -288,23 +289,28 @@ class UserRepository private constructor(
         val result = MutableLiveData<Result<HistoryResponse>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
-            val client = apiService.getHistory()
-            client.enqueue(object : Callback<HistoryResponse>{
-                override fun onResponse(
-                    call: Call<HistoryResponse>,
-                    response: Response<HistoryResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val body = response.body()
-                        body?.let {
-                            result.value = Result.Success(it)
+            userPreference.getSession().collect {user ->
+                val client = apiService.getHistory(
+                    user.userId.toInt(),
+                    user.token
+                )
+                client.enqueue(object : Callback<HistoryResponse>{
+                    override fun onResponse(
+                        call: Call<HistoryResponse>,
+                        response: Response<HistoryResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(it)
+                            }
                         }
                     }
-                }
-                override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
-                    result.value = Result.Error(t.toString())
-                }
-            })
+                    override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
         }
         return result
     }
