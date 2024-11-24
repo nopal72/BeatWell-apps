@@ -8,6 +8,7 @@ import com.example.beatwell.data.UserRepository
 import com.example.beatwell.di.Injection
 import com.example.beatwell.ui.exercise.ExerciseViewModel
 import com.example.beatwell.ui.food.FoodViewModel
+import com.example.beatwell.ui.foodDetail.FoodDetailViewModel
 import com.example.beatwell.ui.history.HistoryViewModel
 import com.example.beatwell.ui.result.ResultViewModel
 import com.example.beatwell.ui.setting.SettingViewModel
@@ -46,6 +47,9 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
             }
             modelClass.isAssignableFrom(MainViewModel::class.java)->{
                 MainViewModel(userRepository) as T
+            }
+            modelClass.isAssignableFrom(FoodDetailViewModel::class.java)->{
+                FoodDetailViewModel(userRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

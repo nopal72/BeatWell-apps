@@ -8,6 +8,7 @@ import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
 import com.example.beatwell.data.remote.api.ApiService
+import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
@@ -180,6 +181,10 @@ class UserRepository private constructor(
         return historyDao.getLastHistory()
     }
 
+    fun getAllHistory(): LiveData<List<HistoryEntity>> {
+        return historyDao.getAllHistory()
+    }
+
     fun getResult(id: Int): LiveData<Result<HistoryEntity>> {
         val result = MutableLiveData<Result<HistoryEntity>>()
         result.value = Result.Loading
@@ -208,6 +213,8 @@ class UserRepository private constructor(
                             body?.let {
                                 result.value = Result.Success(it)
                             }
+                        }else{
+                            result.value = Result.Error(response.message())
                         }
                     }
 
@@ -217,6 +224,37 @@ class UserRepository private constructor(
                 })
             }
         }
+        return result
+    }
+
+    fun getFoodDetail(id: Int): LiveData<Result<FoodDetailResponse>> {
+        val result = MutableLiveData<Result<FoodDetailResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect { user ->
+                val client = apiService.getFoodDetail(id,user.token)
+                client.enqueue(object : Callback<FoodDetailResponse>{
+                    override fun onResponse(
+                        call: Call<FoodDetailResponse>,
+                        response: Response<FoodDetailResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(it)
+                            }
+                        }else{
+                            result.value = Result.Error(response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<FoodDetailResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
+
         return result
     }
 

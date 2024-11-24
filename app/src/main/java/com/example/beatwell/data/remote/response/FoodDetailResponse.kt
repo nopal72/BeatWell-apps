@@ -1,33 +1,37 @@
 package com.example.beatwell.data.remote.response
 
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class FoodsResponse(
+@Parcelize
+data class FoodDetailResponse(
 
 	@field:SerializedName("data")
-	val foodItem: List<FoodItem?>? = null,
+	val data: Data,
 
 	@field:SerializedName("message")
-	val message: String? = null,
+	val message: String,
 
 	@field:SerializedName("error")
-	val error: Boolean? = null
-)
+	val error: Boolean
+) : Parcelable
 
-data class FoodItem(
+@Parcelize
+data class Data(
 
 	@field:SerializedName("image")
-	val image: String? = null,
+	val image: String,
 
 	@field:SerializedName("ingredient")
-	val ingredient: List<String?>? = null,
+	val ingredient: List<String>,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("recipe")
-	val recipe: List<String?>? = null,
+	val recipe: List<String>,
 
 	@field:SerializedName("id")
-	val id: Int? = null
-)
+	val id: Int
+) : Parcelable

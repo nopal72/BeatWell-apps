@@ -1,6 +1,7 @@
 package com.example.beatwell.data.remote.api
 
 import com.example.beatwell.data.pref.PredictRequest
+import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
@@ -13,12 +14,19 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("/foods")
     fun getFoods(
         @Header("Authorization") token: String
     ): Call<FoodsResponse>
+
+    @GET("/foods/{id}")
+    fun getFoodDetail(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): Call<FoodDetailResponse>
 
     @GET("/histories")
     fun getHistory(): Call<HistoryResponse>

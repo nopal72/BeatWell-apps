@@ -2,6 +2,7 @@ package com.example.beatwell.ui.food
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,9 @@ class FoodFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    setFoodsData(result.data.foodItem)
+                    Log.d("FoodFragment", "Data received: $result")
+                    val food = result.data.foodItem
+                    setFoodsData(food)
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -52,7 +55,10 @@ class FoodFragment : Fragment() {
         return binding.root
     }
 
-    private fun setFoodsData(data: List<FoodItem>) {
+    private fun setFoodsData(data: List<FoodItem?>?) {
+
+        Log.d("FoodFragment", "Data received: $data")
+
         adapter = FoodAdapter()
         adapter.submitList(data)
         binding.rvFood.adapter = adapter
