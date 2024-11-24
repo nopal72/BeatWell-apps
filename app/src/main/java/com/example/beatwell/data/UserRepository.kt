@@ -7,11 +7,13 @@ import com.example.beatwell.data.entity.HistoryEntity
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
+import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
+import com.example.beatwell.data.remote.response.NewsResponse
 import com.example.beatwell.data.remote.response.PredictResponse
 import com.example.beatwell.data.remote.response.RegisterResponse
 import com.example.beatwell.data.room.HistoryDao
@@ -254,6 +256,30 @@ class UserRepository private constructor(
                 })
             }
         }
+
+        return result
+    }
+
+    fun getNews(): LiveData<Result<NewsResponse>> {
+        val result = MutableLiveData<Result<NewsResponse>>()
+        result.value = Result.Loading
+        val client = ApiConfig.getNewsApiService().getNews()
+        client.enqueue(object: Callback<NewsResponse>{
+            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    body?.let {
+                        result.value = Result.Success(it)
+                    }
+                }else{
+                    result.value = Result.Error(response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                result.value = Result.Error(t.toString())
+            }
+        })
 
         return result
     }

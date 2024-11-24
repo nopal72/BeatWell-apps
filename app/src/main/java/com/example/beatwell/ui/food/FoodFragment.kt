@@ -56,9 +56,6 @@ class FoodFragment : Fragment() {
     }
 
     private fun setFoodsData(data: List<FoodItem?>?) {
-
-        Log.d("FoodFragment", "Data received: $data")
-
         adapter = FoodAdapter()
         adapter.submitList(data)
         binding.rvFood.adapter = adapter
