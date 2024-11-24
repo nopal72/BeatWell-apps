@@ -18,22 +18,28 @@ class ExerciseFragment : Fragment() {
     }
     private lateinit var binding: FragmentExerciseBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentExerciseBinding.inflate(inflater, container, false)
 
         binding.btnPredict.setOnClickListener {
             startActivity(Intent(requireContext(), PredictActivity::class.java))
         }
 
+        setHistory()
+
         return binding.root
+    }
+
+    private fun setHistory() {
+        viewModel.getLastHistory {
+            if (it != null) {
+                binding.textResult.text = it.prediction.toString()
+                binding.textDate.text = it.date
+            }
+        }
     }
 }

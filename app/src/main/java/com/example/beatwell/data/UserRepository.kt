@@ -19,7 +19,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,7 +65,7 @@ class UserRepository private constructor(
                             true
                         )
                         CoroutineScope(Dispatchers.IO).launch {
-                            userPreference.saveSession(user)
+                            saveSession(user)
                         }
                         result.value = Result.Success(responseBody)
                     } else {
@@ -104,11 +103,7 @@ class UserRepository private constructor(
                         }
                     }
                 }else {
-                    val errorBody = response.errorBody()?.string()
-                    val errorMessage = errorBody?.let {
-                        JSONObject(it).getString("message")
-                    } ?: "Unknown error"
-                    result.value = Result.Error(errorMessage)
+                    result.value = Result.Error(response.message())
                 }
             }
 
@@ -120,8 +115,8 @@ class UserRepository private constructor(
         return result
     }
 
-    fun predict(request: PredictRequest): LiveData<Result<PredictResponse>> {
-        val result = MutableLiveData<Result<PredictResponse>>()
+    fun predict(request: PredictRequest): LiveData<Result<HistoryEntity>> {
+        val result = MutableLiveData<Result<HistoryEntity>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.getSession().collect {user->
@@ -144,7 +139,7 @@ class UserRepository private constructor(
                                    )
                                    val history = HistoryEntity(
                                        date = currentDate,
-                                       prediction = it.predictData.persentage,
+                                       prediction = it.data,
                                        gender = request.sex,
                                        age = request.age,
                                        cigsPerDay = request.cigsPerday,
@@ -161,7 +156,8 @@ class UserRepository private constructor(
                                    )
                                    appExecutors.diskIO.execute {
                                        historyDao.insertHistory(history)
-                                       result.postValue(Result.Success(it))
+                                       val lastHistory = getLastHistory()
+                                       result.postValue(Result.Success(lastHistory))
                                    }
                                }else{
                                    result.value = Result.Error(it.message)
@@ -180,11 +176,27 @@ class UserRepository private constructor(
         return result
     }
 
+    fun getLastHistory(): HistoryEntity{
+        return historyDao.getLastHistory()
+    }
+
+    fun getResult(id: Int): LiveData<Result<HistoryEntity>> {
+        val result = MutableLiveData<Result<HistoryEntity>>()
+        result.value = Result.Loading
+
+        appExecutors.diskIO.execute {
+            val history = historyDao.getHistoryById(id)
+            result.postValue(Result.Success(history))
+        }
+
+        return result
+    }
+
     fun getFoods(): LiveData<Result<FoodsResponse>> {
         val result = MutableLiveData<Result<FoodsResponse>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
-            userPreference.getSession().collect {
+            userPreference.getSession().collect { it ->
                 val client = apiService.getFoods(it.token)
                 client.enqueue(object : Callback<FoodsResponse> {
                     override fun onResponse(

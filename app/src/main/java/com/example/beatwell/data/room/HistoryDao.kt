@@ -10,7 +10,10 @@ interface HistoryDao {
     fun getAllHistory(): LiveData<List<HistoryEntity>>
 
     @Query("SELECT * FROM history WHERE id = :id")
-    fun getHistoryById(id: Int): LiveData<HistoryEntity>
+    fun getHistoryById(id: Int): HistoryEntity
+
+    @Query("SELECT * FROM history ORDER BY date DESC LIMIT 1")
+    fun getLastHistory(): HistoryEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertHistory(history: HistoryEntity)
