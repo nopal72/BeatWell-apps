@@ -36,6 +36,18 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    fun getDailyReminder(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[DAILY_REMINDER_KEY] ?: false
+        }
+    }
+
+    suspend fun setDailyReminder(dailyReminder: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[DAILY_REMINDER_KEY] = dailyReminder
+        }
+    }
+
     suspend fun logout(){
         dataStore.edit { preferences ->
             preferences.clear()
@@ -51,6 +63,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val TOKEN_KEY= stringPreferencesKey("token")
         private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
+        private val DAILY_REMINDER_KEY = booleanPreferencesKey("dailyReminder")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {

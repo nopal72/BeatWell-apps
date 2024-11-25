@@ -315,6 +315,16 @@ class UserRepository private constructor(
         return result
     }
 
+    fun setDailyReminder(dailyReminder: Boolean) {
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.setDailyReminder(dailyReminder)
+        }
+    }
+
+    fun getDailyReminder(): Flow<Boolean> {
+        return userPreference.getDailyReminder()
+    }
+
     companion object {
         @Volatile
         private var instance: UserRepository? = null
