@@ -1,6 +1,8 @@
 package com.example.beatwell.data.remote.api
 
 import com.example.beatwell.data.pref.PredictRequest
+import com.example.beatwell.data.remote.response.ActivityResponse
+import com.example.beatwell.data.remote.response.ChatbotResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
@@ -8,6 +10,7 @@ import com.example.beatwell.data.remote.response.LoginResponse
 import com.example.beatwell.data.remote.response.NewsResponse
 import com.example.beatwell.data.remote.response.PredictResponse
 import com.example.beatwell.data.remote.response.RegisterResponse
+import com.example.beatwell.data.remote.response.TriviaResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -51,11 +54,28 @@ interface ApiService {
         @Field("password") password: String
     ): Call<RegisterResponse>
 
+    @FormUrlEncoded
+    @POST("/chatbot")
+    fun chatBot(
+        @Field("message") message: String,
+        @Header("Authorization") token: String
+    ): Call<ChatbotResponse>
+
     @POST("/prediction")
     fun predict(
         @Body request: PredictRequest,
         @Header("Authorization") token: String
     ): Call<PredictResponse>
+
+    @GET("/trivia")
+    fun getTrivia(
+        @Header("Authorization") token: String
+    ): Call<TriviaResponse>
+
+    @GET("/activity")
+    fun getActivity(
+        @Header("Authorization") token: String
+    ): Call<ActivityResponse>
 
     @GET("v2/top-headlines")
     fun getNews(

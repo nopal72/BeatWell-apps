@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
     // TODO REPLACE BASE URL WITH YOUR OWN
-    private const val BASE_URL ="http://192.168.220.221"
+    private const val BASE_URL ="http://192.168.197.221"
     private const val NEWS_URL ="https://newsapi.org/"
 
     fun getApiService(): ApiService {

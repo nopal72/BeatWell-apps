@@ -7,13 +7,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beatwell.data.remote.response.HistoryItem
 import com.example.beatwell.databinding.HistoryCardBinding
-import com.example.beatwell.databinding.ItemCardBinding
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: HistoryCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HistoryItem){
-            binding.tvDate.text = data.result.toString()
-            binding.tvStatus.text = data.createdAt
+            binding.tvDate.text = formatdDate(data.createdAt)
+            binding.tvStatus.text = data.result.toString()
+        }
+
+        private fun formatdDate(createdAt: String): CharSequence? {
+            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
+            val date = LocalDateTime.parse(createdAt, inputFormatter)
+            val formattedDate = date.format(outputFormatter)
+
+            return formattedDate
         }
     }
 

@@ -1,42 +1,95 @@
 package com.example.beatwell.ui.home
 
+import android.content.Intent
+import androidx.fragment.app.viewModels
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.beatwell.databinding.FragmentHomeBinding
+import com.bumptech.glide.Glide
+import com.example.beatwell.data.Result
+import com.example.beatwell.data.remote.response.Activity
+import com.example.beatwell.databinding.FragmentExerciseBinding
+import com.example.beatwell.ui.ViewModelFactory
+import com.example.beatwell.ui.chatbot.ChatBotActivity
+import com.example.beatwell.ui.predict.PredictActivity
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val viewModel: ExerciseViewModel by viewModels{
+        ViewModelFactory.getInstance(requireContext())
+    }
+    private lateinit var binding: FragmentExerciseBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentExerciseBinding.inflate(inflater, container, false)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding.btnPredict.setOnClickListener {
+            startActivity(Intent(requireContext(), PredictActivity::class.java))
         }
-        return root
+        binding.btnChatBot.setOnClickListener{
+            startActivity(Intent(requireContext(), ChatBotActivity::class.java))
+        }
+
+        setHistory()
+        setTrivia()
+        setActivity()
+
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setActivity() {
+        viewModel.getActivity().observe(viewLifecycleOwner){result->
+            when(result){
+                is Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    setActivityCard(result.data.activity)
+                }
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun setActivityCard(activity: Activity) {
+        Glide.with(requireContext())
+            .load(activity.image)
+            .into(binding.ivActivity)
+        binding.tvActivity.text = activity.name
+        binding.tvActivityDescription.text = activity.detail
+    }
+
+    private fun setTrivia() {
+        viewModel.getTrivia().observe(viewLifecycleOwner) {result->
+            when(result){
+                is Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvTrivia.text = result.data.triviaData.trivia
+                }
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun setHistory() {
+        viewModel.getLastHistory {
+            if (it != null) {
+                binding.textResult.text = it.prediction.toString()
+                binding.textDate.text = it.date
+            }
+        }
     }
 }

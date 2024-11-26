@@ -2,16 +2,11 @@ package com.example.beatwell.ui.foodDetail
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
-import com.example.beatwell.R
 import com.example.beatwell.data.Result
-import com.example.beatwell.data.remote.response.Data
-import com.example.beatwell.data.remote.response.FoodDetailResponse
+import com.example.beatwell.data.remote.response.FoodData
 import com.example.beatwell.databinding.ActivityFoodDetailBinding
 import com.example.beatwell.ui.ViewModelFactory
 
@@ -38,7 +33,7 @@ class FoodDetailActivity : AppCompatActivity() {
                         }
                         is Result.Success ->{
                             binding.progressBar.visibility = View.GONE
-                            val data = result.data.data
+                            val data = result.data.foodData
                             setFoodDetail(data)
                         }
                         is Result.Error ->{
@@ -51,7 +46,7 @@ class FoodDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun setFoodDetail(data: Data) {
+    private fun setFoodDetail(data: FoodData) {
         Glide.with(this)
             .load(data.image)
             .into(binding.ivDetailFood)

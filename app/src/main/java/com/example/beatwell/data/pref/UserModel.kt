@@ -8,6 +8,11 @@ data class UserModel (
     val isLogin: Boolean
 )
 
+data class MessageModel(
+    val text: String,
+    val isFromUser: Boolean
+)
+
 data class PredictRequest(
     val sex: String,
     val age: Int,

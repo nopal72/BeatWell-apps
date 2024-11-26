@@ -12,7 +12,7 @@ interface HistoryDao {
     @Query("SELECT * FROM history WHERE id = :id")
     fun getHistoryById(id: Int): HistoryEntity
 
-    @Query("SELECT * FROM history ORDER BY date DESC LIMIT 1")
+    @Query("SELECT * FROM history ORDER BY id DESC LIMIT 1")
     fun getLastHistory(): HistoryEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

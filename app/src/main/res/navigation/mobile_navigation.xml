@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_exercise"
-        android:name="com.example.beatwell.ui.exercise.ExerciseFragment"
-        android:label="@string/title_exercise"
-        tools:layout="@layout/fragment_exercise" />
+        android:name="com.example.beatwell.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_food"

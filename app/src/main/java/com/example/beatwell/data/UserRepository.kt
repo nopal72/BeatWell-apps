@@ -4,11 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.beatwell.data.entity.HistoryEntity
+import com.example.beatwell.data.pref.MessageModel
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
 import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
+import com.example.beatwell.data.remote.response.ActivityResponse
+import com.example.beatwell.data.remote.response.ChatbotResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
@@ -16,6 +19,7 @@ import com.example.beatwell.data.remote.response.LoginResponse
 import com.example.beatwell.data.remote.response.NewsResponse
 import com.example.beatwell.data.remote.response.PredictResponse
 import com.example.beatwell.data.remote.response.RegisterResponse
+import com.example.beatwell.data.remote.response.TriviaResponse
 import com.example.beatwell.data.room.HistoryDao
 import com.example.beatwell.utils.AppExecutors
 import kotlinx.coroutines.CoroutineScope
@@ -119,6 +123,37 @@ class UserRepository private constructor(
         return result
     }
 
+    fun getActivity(): LiveData<Result<ActivityResponse>>{
+        val result = MutableLiveData<Result<ActivityResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect{user->
+                val client = apiService.getActivity(user.token)
+                client.enqueue(object : Callback<ActivityResponse>{
+                    override fun onResponse(
+                        call: Call<ActivityResponse>,
+                        response: Response<ActivityResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(it)
+                            }
+                        }else{
+                            result.value = Result.Error(response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ActivityResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
+
+        return result
+    }
+
     fun predict(request: PredictRequest): LiveData<Result<HistoryEntity>> {
         val result = MutableLiveData<Result<HistoryEntity>>()
         result.value = Result.Loading
@@ -180,13 +215,45 @@ class UserRepository private constructor(
         return result
     }
 
+    fun chatbot(message: String): LiveData<Result<MessageModel>> {
+        val result = MutableLiveData<Result<MessageModel>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect{user->
+                val client = apiService.chatBot(message,user.token)
+                client.enqueue(object : Callback<ChatbotResponse>{
+                    override fun onResponse(
+                        call: Call<ChatbotResponse>,
+                        response: Response<ChatbotResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val body = response.body()
+                            body?.let {
+                                val text = MessageModel(it.data,false)
+                                result.value = Result.Success(text)
+                            }
+                        }
+                        else{
+                            result.value = Result.Error(response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ChatbotResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
+        return result
+    }
+
     fun getLastHistory(): HistoryEntity{
         return historyDao.getLastHistory()
     }
 
-    fun getAllHistory(): LiveData<List<HistoryEntity>> {
-        return historyDao.getAllHistory()
-    }
+//    fun getAllHistory(): LiveData<List<HistoryEntity>> {
+//        return historyDao.getAllHistory()
+//    }
 
     fun getResult(id: Int): LiveData<Result<HistoryEntity>> {
         val result = MutableLiveData<Result<HistoryEntity>>()
@@ -323,6 +390,38 @@ class UserRepository private constructor(
 
     fun getDailyReminder(): Flow<Boolean> {
         return userPreference.getDailyReminder()
+    }
+
+    fun getTrivia(): LiveData<Result<TriviaResponse>> {
+        val result = MutableLiveData<Result<TriviaResponse>>()
+        result.value = Result.Loading
+
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect {user->
+                val client = apiService.getTrivia(user.token)
+                client.enqueue(object : Callback<TriviaResponse>{
+                    override fun onResponse(
+                        call: Call<TriviaResponse>,
+                        response: Response<TriviaResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(body)
+                            }
+                        }else{
+                            result.value = Result.Error(response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<TriviaResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
+
+        return result
     }
 
     companion object {
