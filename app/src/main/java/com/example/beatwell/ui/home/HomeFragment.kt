@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.beatwell.data.Result
 import com.example.beatwell.data.remote.response.Activity
-import com.example.beatwell.databinding.FragmentExerciseBinding
+import com.example.beatwell.databinding.FragmentHomeBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.chatbot.ChatBotActivity
 import com.example.beatwell.ui.predict.PredictActivity
@@ -20,14 +20,14 @@ class HomeFragment : Fragment() {
     private val viewModel: ExerciseViewModel by viewModels{
         ViewModelFactory.getInstance(requireContext())
     }
-    private lateinit var binding: FragmentExerciseBinding
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentExerciseBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.btnPredict.setOnClickListener {
             startActivity(Intent(requireContext(), PredictActivity::class.java))

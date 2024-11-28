@@ -58,21 +58,15 @@ class AlarmReceiver : BroadcastReceiver() {
         notificationManagerCompat.notify(0, notification)
     }
 
-    fun setRepeatingAlarm(context: Context, type:String, time: String, message: String){
-        if (isDateInvalid(time, TIME_FORMAT)) return
-
+    fun setRepeatingAlarm(context: Context, type:String, message: String){
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmManager::class.java)
+        val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra(EXTRA_MESSAGE, message)
-        val putExtra = intent.putExtra(EXTRA_TYPE,type)
-
-        val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        intent.putExtra(EXTRA_TYPE, type)
 
         val calender = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY,22)
-            set(Calendar.MINUTE,0)
-            set(Calendar.SECOND,0)
+            set(Calendar.HOUR_OF_DAY,4)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING,intent, PendingIntent.FLAG_IMMUTABLE)
@@ -81,16 +75,6 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
     }
 
-    private fun isDateInvalid(date: String, format: String): Boolean {
-        return try {
-            val df = SimpleDateFormat(format, Locale.getDefault())
-            df.isLenient = false
-            df.parse(date)
-            false
-        } catch (e: ParseException) {
-            true
-        }
-    }
 
     fun cancelAlarm(requireContext: Context, typeRepeating: String) {
         val alarmManager = requireContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager

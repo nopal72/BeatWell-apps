@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beatwell.data.UserRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class SettingViewModel(private val userRepository: UserRepository): ViewModel() {

@@ -59,7 +59,6 @@ class SettingFragment : Fragment() {
             alarmReceiver.setRepeatingAlarm(
                 requireContext(),
                 AlarmReceiver.TYPE_REPEATING,
-                "22.00",
                 "Sudah saatnya tidur, yuk beristirahat"
             )
         }
