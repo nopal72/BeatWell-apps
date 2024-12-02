@@ -14,7 +14,7 @@ import java.util.Locale
 
 fun getProfileIcon(context: Context, isLocalUser: Boolean): Drawable {
     val drawable =
-        ContextCompat.getDrawable(context, R.drawable.baseline_tag_faces_24)
+        ContextCompat.getDrawable(context, R.drawable.ic_bot)
             ?: throw IllegalStateException("Could not get user profile image")
 
     if (isLocalUser) {

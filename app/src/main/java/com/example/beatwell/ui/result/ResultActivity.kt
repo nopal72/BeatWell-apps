@@ -1,15 +1,18 @@
 package com.example.beatwell.ui.result
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.beatwell.MainActivity
 import com.example.beatwell.R
 import com.example.beatwell.databinding.ActivityResultBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.data.Result
 import com.example.beatwell.data.entity.HistoryEntity
+import com.example.beatwell.ui.history.HistoryFragment
 
 class ResultActivity : AppCompatActivity() {
 
@@ -28,6 +31,11 @@ class ResultActivity : AppCompatActivity() {
             val id = bundle.getInt("id")
             getResult(id)
         }
+        binding.btnNext.setOnClickListener { moveToHistory() }
+    }
+
+    private fun moveToHistory() {
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun getResult(id: Int) {

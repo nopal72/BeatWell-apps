@@ -19,7 +19,6 @@
         <activity
             android:name=".ui.chatbot.ChatBotActivity"
             android:exported="false" />
-
         <receiver
             android:name=".ui.alarm.AlarmReceiver"
             android:enabled="true"
