@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.beatwell.R
 import com.example.beatwell.databinding.ActivityResultBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.data.Result
@@ -48,19 +49,6 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setData(history: HistoryEntity) {
-        binding.tvChol.text = history.totChol.toString()
-        binding.tvAge.text = history.age.toString()
-        binding.tvBmi.text = history.bmi.toString()
-        binding.tvCigs.text = history.cigsPerDay.toString()
-        binding.tvDiabetes.text = history.diabetes.toString()
-        binding.tvBPMeds.text = history.bpMeds.toString()
-        binding.tvHeartRate.text = history.heartRate.toString()
-        binding.tvGlucose.text = history.glucose.toString()
-        binding.tvDiaBP.text = history.diaBP.toString()
-        binding.tvSysBP.text = history.sysBP.toString()
-        binding.tvPrevalentHyp.text = history.prevalentHyp.toString()
-        binding.tvPrevalentStroke.text = history.prevalentStroke.toString()
-        binding.tvGender.text = history.gender
-        binding.tvPredict.text = history.prediction.toString()
+        binding.tvPredict.text = getString(R.string.prediction_result, history.prediction.toString())
     }
 }

@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/MainFrame"
     android:padding="16dp"
     tools:context=".ui.register.RegisterActivity">
 
@@ -25,8 +24,9 @@
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:text="@string/app_name"
+        android:fontFamily="@font/montserrat_semibold"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="@string/name"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/name_layout"/>
 
@@ -73,7 +73,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/email"
-        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/email_layout"/>
 
@@ -104,8 +104,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_tagline"
+        android:fontFamily="@font/montserrat_semibold"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/text_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -116,8 +117,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/white"
         android:text="@string/password"
+        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintTop_toBottomOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -172,6 +173,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
+        android:fontFamily="@font/montserrat_semibold"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
@@ -186,7 +188,7 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/text_login"
-        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_register" />

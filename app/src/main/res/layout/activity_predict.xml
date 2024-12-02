@@ -24,24 +24,42 @@
             tools:visibility="visible" />
 
         <TextView
+            android:id="@+id/tv_heading"
+            style="@style/MainFrame.Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prediction_heading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_tagline"
+            style="@style/MainFrame.Tagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prediction_desc"
+            app:layout_constraintTop_toBottomOf="@+id/tv_heading"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
             android:id="@+id/label_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Umur"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_age"
+            android:text="@string/label_age"
+            android:textSize="24sp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_age" />
+            app:layout_constraintTop_toBottomOf="@id/tv_tagline"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_age"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_age">
 
             <EditText
                 android:id="@+id/ed_age"
@@ -55,23 +73,22 @@
             android:id="@+id/label_cigs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Jumlah rokok perhari"
+            android:text="@string/cig_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_cigs"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_cigs" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_age" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_cigs"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_age">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_cigs">
 
             <EditText
                 android:id="@+id/ed_cig"
@@ -85,23 +102,21 @@
             android:id="@+id/label_chol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Total Kolestrol"
+            android:text="@string/chol_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_chol"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_chol" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_cigs" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_chol"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_cigs">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_chol">
 
             <EditText
                 android:id="@+id/ed_chol"
@@ -113,25 +128,23 @@
 
         <TextView
             android:id="@+id/label_sys"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Tekanan darah systolik"
+            android:text="@string/systolik_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_sys"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_sys" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_chol" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_sys"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_chol">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_sys">
 
             <EditText
                 android:id="@+id/ed_sys"
@@ -143,25 +156,23 @@
 
         <TextView
             android:id="@+id/label_dia"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Tekanan darah diastolik"
+            android:text="@string/diastolik_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_dia"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_dia" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_sys" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_dia"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_sys">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_dia">
 
             <EditText
                 android:id="@+id/ed_dia"
@@ -175,23 +186,21 @@
             android:id="@+id/label_bmi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Nilai BMI"
+            android:text="@string/bmi_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_bmi"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_bmi" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_dia" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_bmi"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_dia">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_bmi">
 
             <EditText
                 android:id="@+id/ed_bmi"
@@ -205,23 +214,21 @@
             android:id="@+id/label_heartRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Tekanan Jantung"
+            android:text="@string/heart_label"
+            android:layout_marginTop="8dp"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_heartRate"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_heartRate" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_bmi" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_heartRate"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_bmi">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_heartRate">
 
             <EditText
                 android:id="@+id/ed_heartRate"
@@ -235,23 +242,21 @@
             android:id="@+id/label_glucose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Nilai glukosa"
+            android:text="@string/glucose_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_glucose"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_glucose" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_heartRate" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_glucose"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_heartRate">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_glucose">
 
             <EditText
                 android:id="@+id/ed_glucose"
@@ -265,23 +270,21 @@
             android:id="@+id/label_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="jenis kelamin"
+            android:text="@string/gender_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/radio_gender"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/radio_gender" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_glucose" />
 
         <RadioGroup
             android:id="@+id/radio_gender"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/layout_glucose">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_gender">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/radio_pria"
@@ -293,7 +296,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="pria"
+                android:text="@string/male"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -307,7 +310,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:gravity="center"
-                android:text="wanita"
+                android:text="@string/female"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -315,25 +318,23 @@
 
         <TextView
             android:id="@+id/label_BPMeds"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Menggunakan obat tekanan darah?"
+            android:text="@string/bpmeds_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/radio_BPMeds"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/radio_BPMeds" />
+            app:layout_constraintTop_toBottomOf="@+id/radio_gender" />
 
         <RadioGroup
             android:id="@+id/radio_BPMeds"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/radio_gender">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_BPMeds">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/BPMeds_true"
@@ -345,7 +346,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="ya"
+                android:text="@string/yes"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -359,7 +360,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:gravity="center"
-                android:text="tidak"
+                android:text="@string/no"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -367,25 +368,23 @@
 
         <TextView
             android:id="@+id/label_stroke"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Mempunyai riwayat stroke?"
+            android:text="@string/stroke_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/radio_stroke"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/radio_stroke" />
+            app:layout_constraintTop_toBottomOf="@+id/radio_BPMeds" />
 
         <RadioGroup
             android:id="@+id/radio_stroke"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/radio_BPMeds">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_stroke">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/stroke_true"
@@ -397,7 +396,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="ya"
+                android:text="@string/yes"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -411,7 +410,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:gravity="center"
-                android:text="tidak"
+                android:text="@string/no"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -419,25 +418,23 @@
 
         <TextView
             android:id="@+id/label_prevalentHyp"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Mempunyai riwayat hipertensi?"
+            android:text="@string/hipertensi_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/radio_prevalentHyp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/radio_prevalentHyp" />
+            app:layout_constraintTop_toBottomOf="@+id/radio_stroke" />
 
         <RadioGroup
             android:id="@+id/radio_prevalentHyp"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/radio_stroke">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_prevalentHyp">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/prevalentHyp_true"
@@ -449,7 +446,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="ya"
+                android:text="@string/yes"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -463,7 +460,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:gravity="center"
-                android:text="tidak"
+                android:text="@string/no"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -471,25 +468,23 @@
 
         <TextView
             android:id="@+id/label_diabetes"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Mempunyai riwayat diabetes?"
+            android:text="@string/diabetes_label"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/radio_diabetes"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/radio_diabetes" />
+            app:layout_constraintTop_toBottomOf="@+id/radio_prevalentHyp" />
 
         <RadioGroup
             android:id="@+id/radio_diabetes"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/radio_prevalentHyp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_diabetes">
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/diabetes_true"
@@ -501,7 +496,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="ya"
+                android:text="@string/yes"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -515,7 +510,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:gravity="center"
-                android:text="tidak"
+                android:text="@string/no"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -525,11 +520,12 @@
             android:id="@+id/btn_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="kirim"
-            android:layout_marginTop="14dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"
+            android:text="@string/send"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radio_diabetes"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio_diabetes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

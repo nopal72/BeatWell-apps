@@ -79,7 +79,7 @@ interface ApiService {
 
     @GET("v2/top-headlines")
     fun getNews(
-        @Query("q") query: String = "chd",
+        @Query("q") query: String = "health",
         @Query("apiKey") apiKey: String = "8b5c302a4ca54e198d88dc1d18b9c37b"
     ): Call<NewsResponse>
 }

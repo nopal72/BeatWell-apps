@@ -17,6 +17,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", "\"https://beatwell-api-4q6lnroooq-et.a.run.app\"")
+        buildConfigField("String", "NEWS_URL", "\"https://newsapi.org/\"")
     }
 
     buildTypes {
@@ -78,4 +80,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.williamchart)
 }

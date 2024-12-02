@@ -1,5 +1,6 @@
 package com.example.beatwell.data.remote.api
 
+import com.example.beatwell.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,9 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
 
-    // TODO REPLACE BASE URL WITH YOUR OWN
-    private const val BASE_URL ="http://192.168.197.221"
-    private const val NEWS_URL ="https://newsapi.org/"
+    private val BASE_URL = BuildConfig.BASE_URL
+    private val NEWS_URL = BuildConfig.NEWS_URL
 
     fun getApiService(): ApiService {
         val loggingInterceptor =

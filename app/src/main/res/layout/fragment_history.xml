@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     style="@style/MainFrame"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.history.HistoryFragment">
+    tools:context=".ui.history.HistoryFragment"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/tv_heading"
@@ -13,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/history_heading"
+        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -22,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/history_tagline"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintTop_toBottomOf="@+id/tv_heading"
         app:layout_constraintStart_toStartOf="parent"/>
 

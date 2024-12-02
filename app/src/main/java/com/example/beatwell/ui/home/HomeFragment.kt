@@ -3,17 +3,23 @@ package com.example.beatwell.ui.home
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.example.beatwell.R
 import com.example.beatwell.data.Result
 import com.example.beatwell.data.remote.response.Activity
 import com.example.beatwell.databinding.FragmentHomeBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.chatbot.ChatBotActivity
 import com.example.beatwell.ui.predict.PredictActivity
+import com.example.beatwell.utils.dateFormater
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -63,6 +69,7 @@ class HomeFragment : Fragment() {
         Glide.with(requireContext())
             .load(activity.image)
             .into(binding.ivActivity)
+
         binding.tvActivity.text = activity.name
         binding.tvActivityDescription.text = activity.detail
     }
@@ -87,8 +94,9 @@ class HomeFragment : Fragment() {
     private fun setHistory() {
         viewModel.getLastHistory {
             if (it != null) {
-                binding.textResult.text = it.prediction.toString()
-                binding.textDate.text = it.date
+                binding.textResult.text = getString(R.string.prediction_result, it.prediction.toString())
+                Log.d("TAG", "setHistoryCard: ${it.date}")
+                binding.textDate.text = dateFormater(it.date,"yyyy-MM-dd")
             }
         }
     }

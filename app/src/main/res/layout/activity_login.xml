@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity"
-    style="@style/MainFrame">
+    android:padding="16dp">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@color/black"
         android:text="@string/email"
-        android:visibility="visible"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/email_layout"/>
 
@@ -37,7 +37,6 @@
         android:layout_width="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:boxBackgroundColor="@color/white"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginBottom="16dp"
@@ -62,8 +61,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/password"
-        android:visibility="visible"
-        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -98,6 +97,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_semibold"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,9 +109,9 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:text="@string/text_signup"
+        android:fontFamily="@font/montserrat_semibold"
         android:clickable="true"
         android:visibility="visible"
-        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/btn_sign_in"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

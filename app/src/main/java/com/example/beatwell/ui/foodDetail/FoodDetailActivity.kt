@@ -51,10 +51,14 @@ class FoodDetailActivity : AppCompatActivity() {
             .load(data.image)
             .into(binding.ivDetailFood)
         binding.apply {
-            val recipeStrings = data.recipe.joinToString(separator = "\n") { it }
+            val recipeStrings = data.recipe.mapIndexed { index, recipe ->
+                "${index + 1}. $recipe"
+            }.joinToString(separator = "\n")
             tvRecipe.text = recipeStrings
 
-            val ingredientStrings = data.ingredient.joinToString(separator = "\n") { it }
+            val ingredientStrings = data.ingredient.mapIndexed { index, ingredient ->
+                "${index + 1}. $ingredient"
+            }.joinToString(separator = "\n")
             tvIngredients.text = ingredientStrings
             tvFoodName.text = data.name
         }

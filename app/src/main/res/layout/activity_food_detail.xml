@@ -39,6 +39,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:textStyle="bold"
+            android:fontFamily="@font/montserrat_bold"
             app:layout_constraintTop_toBottomOf="@+id/iv_detail_food"
             tools:text="@string/title_food"/>
 
@@ -57,8 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/montserrat_semibold"
             android:textStyle="bold"
-            android:text="Bahan - bahan"
+            android:text="@string/ingredients"
             app:layout_constraintTop_toBottomOf="@id/view_separator"/>
 
         <TextView
@@ -67,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="16dp"
-            android:text="- sayur\n- garam\n- cabe"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/ingredients_dummy"
             app:layout_constraintTop_toBottomOf="@id/heading_ingredient"/>
 
         <TextView
@@ -77,7 +80,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="16dp"
             android:textStyle="bold"
-            android:text="Cara memasak"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/how_to_cook"
             app:layout_constraintTop_toBottomOf="@id/tv_ingredients"/>
 
         <TextView
@@ -86,7 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="16dp"
-            android:text="- sayur\n- garam\n- cabe"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/how_to_cook_dummy"
             app:layout_constraintTop_toBottomOf="@id/heading_recipe"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

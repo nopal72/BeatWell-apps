@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/MainFrame"
-    tools:context=".ui.food.FoodFragment">
+    tools:context=".ui.food.FoodFragment"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/tv_heading"
@@ -13,15 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/food_heading"
+        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/tv_tagline"
         style="@style/MainFrame.Tagline"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/food_tagline"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintTop_toBottomOf="@+id/tv_heading"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -29,7 +32,6 @@
         android:id="@+id/rv_food"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        style="@style/MainFrame.RecyclerView"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
