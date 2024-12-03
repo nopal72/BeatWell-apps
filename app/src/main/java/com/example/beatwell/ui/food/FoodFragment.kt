@@ -35,6 +35,17 @@ class FoodFragment : Fragment() {
         binding.rvFood.layoutManager = layoutManager
         binding.rvFood.addItemDecoration(itemDecoration)
 
+        binding.refresh.setOnRefreshListener {
+            getFood()
+            binding.refresh.isRefreshing = false
+        }
+
+        getFood()
+
+        return binding.root
+    }
+
+    private fun getFood() {
         viewModel.getFoods().observe(viewLifecycleOwner){ result ->
             when (result) {
                 is Result.Loading -> {
@@ -51,8 +62,6 @@ class FoodFragment : Fragment() {
                 }
             }
         }
-
-        return binding.root
     }
 
     private fun setFoodsData(data: List<FoodItem?>?) {

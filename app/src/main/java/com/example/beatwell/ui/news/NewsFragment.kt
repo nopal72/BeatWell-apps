@@ -33,6 +33,10 @@ class NewsFragment : Fragment() {
 
         binding.rvNews.layoutManager = layoutManager
         binding.rvNews.addItemDecoration(itemDecoration)
+        binding.refresh.setOnRefreshListener {
+            setNews()
+            binding.refresh.isRefreshing = false
+        }
 
         setNews()
 

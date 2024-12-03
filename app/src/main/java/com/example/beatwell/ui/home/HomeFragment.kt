@@ -41,6 +41,7 @@ class HomeFragment : Fragment() {
         binding.refresh.setOnRefreshListener {
             setHistory()
             setActivity()
+            setTrivia()
             binding.refresh.isRefreshing = false
         }
 
