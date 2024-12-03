@@ -258,6 +258,7 @@ class UserRepository private constructor(
                     }
                 })
                 val latestHistory = historyDao.getLastHistory()
+                Log.d("UserRepository", "latestHistory: $latestHistory")
                 result.postValue(Result.Success(latestHistory))
             }
         }

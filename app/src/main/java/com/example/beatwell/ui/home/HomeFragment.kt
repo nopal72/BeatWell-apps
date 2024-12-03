@@ -25,11 +25,6 @@ class HomeFragment : Fragment() {
     }
     private lateinit var binding: FragmentHomeBinding
 
-    override fun onResume() {
-        super.onResume()
-        setHistory()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -42,6 +37,11 @@ class HomeFragment : Fragment() {
         }
         binding.btnChatBot.setOnClickListener{
             startActivity(Intent(requireContext(), ChatBotActivity::class.java))
+        }
+        binding.refresh.setOnRefreshListener {
+            setHistory()
+            setActivity()
+            binding.refresh.isRefreshing = false
         }
 
         setHistory()
