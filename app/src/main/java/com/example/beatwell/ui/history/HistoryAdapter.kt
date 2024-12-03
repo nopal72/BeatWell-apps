@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.beatwell.data.entity.HistoryEntity
 import com.example.beatwell.data.remote.response.HistoryItem
 import com.example.beatwell.databinding.HistoryCardBinding
 import com.example.beatwell.utils.dateFormater
 
-class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class HistoryAdapter: ListAdapter<HistoryEntity, HistoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: HistoryCardBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: HistoryItem){
-            binding.tvDate.text = dateFormater(data.createdAt)
+        fun bind(data: HistoryEntity){
+            binding.tvDate.text = dateFormater(data.date)
             binding.tvStatus.text = buildString {
-                append(data.result.toString())
+                append(data.prediction.toString())
                 append("%")
             }
         }
@@ -32,12 +33,12 @@ class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HistoryItem>() {
-            override fun areContentsTheSame(oldItem: HistoryItem, newItem: HistoryItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HistoryEntity>() {
+            override fun areContentsTheSame(oldItem: HistoryEntity, newItem: HistoryEntity): Boolean {
                 return oldItem == newItem
             }
-            override fun areItemsTheSame(oldItem: HistoryItem, newItem: HistoryItem): Boolean {
-                return oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: HistoryEntity, newItem: HistoryEntity): Boolean {
+                return oldItem.date == newItem.date
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beatwell.data.Result
+import com.example.beatwell.data.entity.HistoryEntity
 import com.example.beatwell.data.remote.response.HistoryItem
 import com.example.beatwell.databinding.FragmentHistoryBinding
 import com.example.beatwell.ui.ViewModelFactory
@@ -49,14 +50,17 @@ class HistoryFragment : Fragment() {
 //            }
 //        }
 
+        viewModel.getAlHistory().observe(viewLifecycleOwner) { historyItem ->
+            setHistoryData(historyItem)
+        }
+
         return binding.root
     }
 
-    private fun setHistoryData(historyItem: List<HistoryItem>) {
+    private fun setHistoryData(historyItem: List<HistoryEntity>?) {
         adapter = HistoryAdapter()
         adapter.submitList(historyItem)
         binding.rvHistory.adapter = adapter
     }
-
 
 }
