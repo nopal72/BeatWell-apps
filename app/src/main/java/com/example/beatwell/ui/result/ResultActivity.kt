@@ -39,21 +39,21 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun getResult(id: Int) {
-        viewModel.getResult(id).observe(this) {result ->
-            when(result) {
-                is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    val history = result.data
-                    setData(history)
-                }
-                is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                }
-            }
-        }
+//        viewModel.getResult(id).observe(this) {result ->
+//            when(result) {
+//                is Result.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+//                }
+//                is Result.Success -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    val history = result.data
+//                    setData(history)
+//                }
+//                is Result.Error -> {
+//                    binding.progressBar.visibility = View.GONE
+//                }
+//            }
+//        }
     }
 
     private fun setData(history: HistoryEntity) {

@@ -12,7 +12,7 @@ import com.example.beatwell.utils.dateFormater
 class HistoryAdapter: ListAdapter<HistoryItem, HistoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: HistoryCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HistoryItem){
-            binding.tvDate.text = dateFormater(data.createdAt,"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").toString()
+            binding.tvDate.text = dateFormater(data.createdAt)
             binding.tvStatus.text = buildString {
                 append(data.result.toString())
                 append("%")

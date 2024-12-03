@@ -34,20 +34,20 @@ class HistoryFragment : Fragment() {
         binding.rvHistory.layoutManager = layoutManager
         binding.rvHistory.addItemDecoration(itemDecoration)
 
-        viewModel.getHistory().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    setHistoryData(result.data.historyItem)
-                }
-                is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                }
-            }
-        }
+//        viewModel.getHistory().observe(viewLifecycleOwner) { result ->
+//            when (result) {
+//                is Result.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+//                }
+//                is Result.Success -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    setHistoryData(result.data.historyItem)
+//                }
+//                is Result.Error -> {
+//                    binding.progressBar.visibility = View.GONE
+//                }
+//            }
+//        }
 
         return binding.root
     }

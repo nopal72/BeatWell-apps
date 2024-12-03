@@ -9,13 +9,8 @@ import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.TriviaResponse
 import java.util.concurrent.Executors
 
-class ExerciseViewModel(private val userRepository: UserRepository) : ViewModel() {
-    fun getLastHistory(callback: (HistoryEntity?) -> Unit) {
-        Executors.newSingleThreadExecutor().execute {
-            val lastHistory = userRepository.getLastHistory()
-            callback(lastHistory)
-        }
-    }
+class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
+    fun getHistory(): LiveData<Result<HistoryEntity>> = userRepository.getHistory()
 
     fun getActivity(): LiveData<Result<ActivityResponse>> = userRepository.getActivity()
 

@@ -7,7 +7,7 @@ import com.example.beatwell.MainViewModel
 import com.example.beatwell.data.UserRepository
 import com.example.beatwell.di.Injection
 import com.example.beatwell.ui.chatbot.ChatBotViewModel
-import com.example.beatwell.ui.home.ExerciseViewModel
+import com.example.beatwell.ui.home.HomeViewModel
 import com.example.beatwell.ui.food.FoodViewModel
 import com.example.beatwell.ui.foodDetail.FoodDetailViewModel
 import com.example.beatwell.ui.history.HistoryViewModel
@@ -23,8 +23,8 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(ExerciseViewModel::class.java)->{
-                ExerciseViewModel(userRepository) as T
+            modelClass.isAssignableFrom(HomeViewModel::class.java)->{
+                HomeViewModel(userRepository) as T
             }
             modelClass.isAssignableFrom(FoodViewModel::class.java)->{
                 FoodViewModel(userRepository) as T

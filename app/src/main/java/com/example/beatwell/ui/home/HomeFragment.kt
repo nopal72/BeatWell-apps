@@ -17,13 +17,10 @@ import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.chatbot.ChatBotActivity
 import com.example.beatwell.ui.predict.PredictActivity
 import com.example.beatwell.utils.dateFormater
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class HomeFragment : Fragment() {
 
-    private val viewModel: ExerciseViewModel by viewModels{
+    private val viewModel: HomeViewModel by viewModels{
         ViewModelFactory.getInstance(requireContext())
     }
     private lateinit var binding: FragmentHomeBinding
@@ -92,11 +89,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun setHistory() {
-        viewModel.getLastHistory {
-            if (it != null) {
-                binding.textResult.text = getString(R.string.prediction_result, it.prediction.toString())
-                Log.d("TAG", "setHistoryCard: ${it.date}")
-                binding.textDate.text = dateFormater(it.date,"yyyy-MM-dd")
+        viewModel.getHistory().observe(viewLifecycleOwner) {result->
+            when(result) {
+                is Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.textDate.text = dateFormater(result.data.date)
+                    binding.textResult.text = result.data.prediction.toString()
+                }
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                }
             }
         }
     }

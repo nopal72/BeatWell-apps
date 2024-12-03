@@ -29,9 +29,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class UserRepository private constructor(
     private val userPreference: UserPreference,
@@ -173,28 +170,7 @@ class UserRepository private constructor(
                            val body = response.body()
                            body?.let {
                                if (!it.error){
-                                   val currentDate: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
-                                       Date()
-                                   )
-                                   val history = HistoryEntity(
-                                       date = currentDate,
-                                       prediction = it.data,
-                                       gender = request.sex,
-                                       age = request.age,
-                                       cigsPerDay = request.cigsPerday,
-                                       bpMeds = request.BPMeds,
-                                       prevalentStroke = request.prevalentStroke,
-                                       prevalentHyp = request.prevalentHyp,
-                                       diabetes = request.diabetes,
-                                       totChol = request.totChol,
-                                       sysBP = request.sysBP,
-                                       diaBP = request.diaBP,
-                                       bmi = request.BMI,
-                                       heartRate = request.heartRate,
-                                       glucose = request.glucose
-                                   )
                                    appExecutors.diskIO.execute {
-                                       historyDao.insertHistory(history)
                                        val lastHistory = getLastHistory()
                                        result.postValue(Result.Success(lastHistory))
                                    }
@@ -251,21 +227,21 @@ class UserRepository private constructor(
         return historyDao.getLastHistory()
     }
 
-//    fun getAllHistory(): LiveData<List<HistoryEntity>> {
-//        return historyDao.getAllHistory()
-//    }
-
-    fun getResult(id: Int): LiveData<Result<HistoryEntity>> {
-        val result = MutableLiveData<Result<HistoryEntity>>()
-        result.value = Result.Loading
-
-        appExecutors.diskIO.execute {
-            val history = historyDao.getHistoryById(id)
-            result.postValue(Result.Success(history))
-        }
-
-        return result
+    fun getAllHistory(): LiveData<List<HistoryEntity>> {
+        return historyDao.getAllHistory()
     }
+
+//    fun getResult(id: Int): LiveData<Result<HistoryEntity>> {
+//        val result = MutableLiveData<Result<HistoryEntity>>()
+//        result.value = Result.Loading
+//
+//        appExecutors.diskIO.execute {
+//            val history = historyDao.getHistoryById(id)
+//            result.postValue(Result.Success(history))
+//        }
+//
+//        return result
+//    }
 
     fun getFoods(): LiveData<Result<FoodsResponse>> {
         val result = MutableLiveData<Result<FoodsResponse>>()
@@ -352,8 +328,8 @@ class UserRepository private constructor(
         return result
     }
 
-    fun getHistory(): LiveData<Result<HistoryResponse>>{
-        val result = MutableLiveData<Result<HistoryResponse>>()
+    fun getHistory(): LiveData<Result<HistoryEntity>>{
+        val result = MutableLiveData<Result<HistoryEntity>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.getSession().collect {user ->
@@ -369,7 +345,15 @@ class UserRepository private constructor(
                         if (response.isSuccessful) {
                             val body = response.body()
                             body?.let {
-                                result.value = Result.Success(it)
+                                val historyItems = it.historyItem.map {historyItem ->
+                                    HistoryEntity(
+                                        date = historyItem.createdAt,
+                                        prediction = historyItem.result
+                                    )
+                                }
+                                appExecutors.diskIO.execute {
+                                    historyDao.insertHistory(historyItems)
+                                }
                             }
                         }
                     }
@@ -377,6 +361,8 @@ class UserRepository private constructor(
                         result.value = Result.Error(t.toString())
                     }
                 })
+                val latestHistory = historyDao.getLastHistory()
+                result.postValue(Result.Success(latestHistory))
             }
         }
         return result
@@ -388,9 +374,7 @@ class UserRepository private constructor(
         }
     }
 
-    fun getDailyReminder(): Flow<Boolean> {
-        return userPreference.getDailyReminder()
-    }
+    fun getDailyReminder(): Flow<Boolean> = userPreference.getDailyReminder()
 
     fun getTrivia(): LiveData<Result<TriviaResponse>> {
         val result = MutableLiveData<Result<TriviaResponse>>()

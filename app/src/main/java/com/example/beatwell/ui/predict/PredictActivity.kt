@@ -75,7 +75,7 @@ class PredictActivity : AppCompatActivity() {
                 is Result.Success -> {
                     binding.progressBar.visibility = android.view.View.GONE
                     val intentResult = Intent(this, ResultActivity::class.java)
-                    intentResult.putExtra("id", result.data.id)
+                    intentResult.putExtra("date", result.data.date)
                     startActivity(intentResult)
                 }
                 is Result.Error -> {
