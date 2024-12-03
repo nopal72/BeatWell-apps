@@ -1,15 +1,15 @@
 package com.example.beatwell.ui.setting
 
-import android.app.PendingIntent
 import android.content.Intent
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import com.example.beatwell.R
 import com.example.beatwell.databinding.FragmentSettingBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.alarm.AlarmReceiver
@@ -35,8 +35,7 @@ class SettingFragment : Fragment() {
         alarmReceiver = AlarmReceiver()
 
         binding.btnSignOut.setOnClickListener {
-            viewModel.logOut()
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            showConfirmationDialog()
         }
 
         switchSetup()
@@ -45,6 +44,24 @@ class SettingFragment : Fragment() {
         settingUser()
 
         return binding.root
+    }
+
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Konfirmasi Keluar")
+        builder.setMessage("Apakah anda yakin ingin keluar?")
+
+        builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
+            dialog.dismiss()
+            viewModel.logOut()
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
+
+        builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.create().show()
     }
 
     private fun settingUser() {

@@ -7,5 +7,5 @@ import com.example.beatwell.data.UserRepository
 import com.example.beatwell.data.entity.HistoryEntity
 
 class ResultViewModel(private val userRepository: UserRepository) : ViewModel() {
-//    fun getResult(id: Int): LiveData<Result<HistoryEntity>> = userRepository.getResult(id)
+    fun getResult(date: String): LiveData<Result<HistoryEntity>> = userRepository.getResult(date)
 }

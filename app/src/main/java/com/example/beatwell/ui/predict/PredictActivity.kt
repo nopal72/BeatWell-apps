@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.beatwell.R
 import com.example.beatwell.data.Result
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.databinding.ActivityPredictBinding
@@ -24,7 +26,7 @@ class PredictActivity : AppCompatActivity() {
         binding = ActivityPredictBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnSend.setOnClickListener { setRequest() }
+        binding.btnSend.setOnClickListener { showConfirmationDialog() }
     }
 
     private fun setRequest() {
@@ -66,6 +68,23 @@ class PredictActivity : AppCompatActivity() {
         predict(request)
     }
 
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Konfirmasi Data")
+        builder.setMessage("Apakah data sudah benar dan Anda ingin melanjutkan?")
+
+        builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
+            dialog.dismiss()
+            setRequest()
+        }
+
+        builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.create().show()
+    }
+
     private fun predict(request: PredictRequest) {
         viewModel.predict(request).observe(this) { result ->
             when(result) {
@@ -75,7 +94,7 @@ class PredictActivity : AppCompatActivity() {
                 is Result.Success -> {
                     binding.progressBar.visibility = android.view.View.GONE
                     val intentResult = Intent(this, ResultActivity::class.java)
-                    intentResult.putExtra("date", result.data.date)
+                    intentResult.putExtra("result", result.data.data)
                     startActivity(intentResult)
                 }
                 is Result.Error -> {

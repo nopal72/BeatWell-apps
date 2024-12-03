@@ -75,12 +75,10 @@
 
         </androidx.cardview.widget.CardView>
 
-        <com.db.williamchart.view.LineChartView
+        <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/history_chart"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            app:chart_axis="none"
-            app:chart_smoothLine="true"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

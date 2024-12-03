@@ -25,6 +25,11 @@ class HomeFragment : Fragment() {
     }
     private lateinit var binding: FragmentHomeBinding
 
+    override fun onResume() {
+        super.onResume()
+        setHistory()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

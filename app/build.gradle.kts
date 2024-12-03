@@ -80,5 +80,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.core.splashscreen)
-    implementation(libs.williamchart)
+    implementation(libs.mpandroidchart)
 }

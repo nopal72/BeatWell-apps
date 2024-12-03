@@ -8,11 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.beatwell.data.Result
+import com.example.beatwell.R
 import com.example.beatwell.data.entity.HistoryEntity
-import com.example.beatwell.data.remote.response.HistoryItem
 import com.example.beatwell.databinding.FragmentHistoryBinding
 import com.example.beatwell.ui.ViewModelFactory
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HistoryFragment : Fragment() {
 
@@ -35,26 +42,15 @@ class HistoryFragment : Fragment() {
         binding.rvHistory.layoutManager = layoutManager
         binding.rvHistory.addItemDecoration(itemDecoration)
 
-//        viewModel.getHistory().observe(viewLifecycleOwner) { result ->
-//            when (result) {
-//                is Result.Loading -> {
-//                    binding.progressBar.visibility = View.VISIBLE
-//                }
-//                is Result.Success -> {
-//                    binding.progressBar.visibility = View.GONE
-//                    setHistoryData(result.data.historyItem)
-//                }
-//                is Result.Error -> {
-//                    binding.progressBar.visibility = View.GONE
-//                }
-//            }
-//        }
+        getAllHistory()
 
+        return binding.root
+    }
+
+    private fun getAllHistory() {
         viewModel.getAlHistory().observe(viewLifecycleOwner) { historyItem ->
             setHistoryData(historyItem)
         }
-
-        return binding.root
     }
 
     private fun setHistoryData(historyItem: List<HistoryEntity>?) {
@@ -62,5 +58,4 @@ class HistoryFragment : Fragment() {
         adapter.submitList(historyItem)
         binding.rvHistory.adapter = adapter
     }
-
 }

@@ -9,5 +9,5 @@ import com.example.beatwell.data.Result
 import com.example.beatwell.data.entity.HistoryEntity
 
 class PredictViewModel(private val repository: UserRepository) : ViewModel() {
-    fun predict(request: PredictRequest): LiveData<Result<HistoryEntity>> = repository.predict(request)
+    fun predict(request: PredictRequest): LiveData<Result<PredictResponse>> = repository.predict(request)
 }
