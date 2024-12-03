@@ -102,4 +102,5 @@
     <string name="text_next">selanjutnya</string>
     <string name="button_chat_bot">button chat bot</string>
     <string name="beatwell_tagline">Deteksi Dini, Jantung Sehat, Hidup Lebih Bermakna</string>
+    <string name="text_chatbot_heading">Ask any complaints or questions related to your heart disease!</string>
 </resources>

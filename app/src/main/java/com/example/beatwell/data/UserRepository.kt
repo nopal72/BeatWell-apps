@@ -47,6 +47,7 @@ class UserRepository private constructor(
 
     suspend fun logout(){
         userPreference.logout()
+        historyDao.clearAllData()
     }
 
     fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
