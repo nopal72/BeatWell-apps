@@ -1,8 +1,11 @@
 package com.example.beatwell.ui.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -34,16 +37,42 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        setAnimation()
+
         binding.btnSignIn.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
             login(email, password)
         }
-
         binding.textSignup.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+    }
+
+    private fun setAnimation() {
+        ObjectAnimator.ofFloat(binding.ivHeart, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+        val tagline = ObjectAnimator.ofFloat(binding.appTagline, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.textEmail, View.ALPHA, 1f).setDuration(500)
+        val emailLayout = ObjectAnimator.ofFloat(binding.emailLayout, View.ALPHA, 1f).setDuration(500)
+        val password = ObjectAnimator.ofFloat(binding.textPassword, View.ALPHA, 1f).setDuration(500)
+        val passwordLayout = ObjectAnimator.ofFloat(binding.passwordLayout, View.ALPHA, 1f).setDuration(500)
+        val login = ObjectAnimator.ofFloat(binding.btnSignIn, View.ALPHA, 1f).setDuration(500)
+        val signup = ObjectAnimator.ofFloat(binding.textSignup, View.ALPHA, 1f).setDuration(500)
+
+        val together = AnimatorSet().apply {
+            playTogether(email, emailLayout, password, passwordLayout)
+            start()
+        }
+
+        AnimatorSet().apply {
+            playSequentially(tagline, together, login, signup)
+            start()
+        }
     }
 
     private fun login(email: String, password: String) {

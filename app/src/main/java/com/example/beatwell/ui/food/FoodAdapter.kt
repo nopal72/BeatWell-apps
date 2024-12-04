@@ -1,8 +1,10 @@
 package com.example.beatwell.ui.food
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +24,15 @@ class FoodAdapter: ListAdapter<FoodItem, FoodAdapter.MyViewHolder>(DIFF_CALLBACK
             itemView.setOnClickListener {
                 val foodDetail = Intent(itemView.context, FoodDetailActivity::class.java)
                 foodDetail.putExtra("id", data.id)
-                itemView.context.startActivity(foodDetail)
+
+                val optionsCompat : ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        itemView.context as Activity,
+                        androidx.core.util.Pair(binding.ivCard, "image"),
+                        androidx.core.util.Pair(binding.cardTitle, "name")
+                    )
+
+                itemView.context.startActivity(foodDetail, optionsCompat.toBundle())
             }
         }
     }
