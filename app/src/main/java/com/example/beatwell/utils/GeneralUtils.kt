@@ -32,3 +32,8 @@ fun dateFormater(date: String): String {
     val outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
     return parsedDate.format(outputFormatter)
 }
+fun dateNumberFormater(date: String): String {
+    val parsedDate = ZonedDateTime.parse(date)
+    val outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale("id", "ID"))
+    return parsedDate.format(outputFormatter)
+}

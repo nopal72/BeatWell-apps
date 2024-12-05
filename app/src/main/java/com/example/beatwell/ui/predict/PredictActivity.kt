@@ -71,8 +71,8 @@ class PredictActivity : AppCompatActivity() {
 
     private fun showConfirmationDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Konfirmasi Data")
-        builder.setMessage("Apakah data sudah benar dan Anda ingin melanjutkan?")
+        builder.setTitle(getString(R.string.text_data_confirmation))
+        builder.setMessage(getString(R.string.text_desc_data_confirmation))
 
         builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
             dialog.dismiss()
