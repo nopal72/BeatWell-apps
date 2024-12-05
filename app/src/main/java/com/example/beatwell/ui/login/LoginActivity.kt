@@ -70,16 +70,17 @@ class LoginActivity : AppCompatActivity() {
         viewModel.login(email, password).observe(this) { result ->
             when (result) {
                 is Result.Success -> {
-                    binding.progressBar.visibility = android.view.View.GONE
+                    binding.progressBar.visibility = View.GONE
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 is Result.Error -> {
-                    binding.progressBar.visibility = android.view.View.GONE
-                    Log.e("Login Error", result.error)
+                    binding.progressBar.visibility = View.GONE
+                    binding.textError.visibility = View.VISIBLE
+                    binding.textError.text = "password atau email salah"
                 }
                 is Result.Loading -> {
-                    binding.progressBar.visibility = android.view.View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }

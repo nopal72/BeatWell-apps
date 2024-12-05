@@ -86,6 +86,8 @@ class RegisterActivity : AppCompatActivity() {
                         result.error,
                         Snackbar.LENGTH_SHORT
                     ).show()
+                    binding.textError.visibility = View.VISIBLE
+                    binding.textError.text = "email sudah digunakan"
                 }
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
