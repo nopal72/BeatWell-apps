@@ -46,8 +46,10 @@ class UserRepository private constructor(
     }
 
     suspend fun logout(){
+        CoroutineScope(Dispatchers.IO).launch {
+            historyDao.clearAllData()
+        }
         userPreference.logout()
-        historyDao.clearAllData()
     }
 
     fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
@@ -161,7 +163,6 @@ class UserRepository private constructor(
                     request,
                     user.token
                 )
-                Log.d("UserRepository", "token: ${user.token}")
                 client.enqueue(object : Callback<PredictResponse>{
                     override fun onResponse(
                         call: Call<PredictResponse>,
@@ -219,10 +220,6 @@ class UserRepository private constructor(
             }
         }
         return result
-    }
-
-    fun getLastHistory(): HistoryEntity{
-        return historyDao.getLastHistory()
     }
 
     fun getHistory(): LiveData<Result<HistoryEntity>>{

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.beatwell.MainActivity
 import com.example.beatwell.databinding.ActivityResultBinding
 import com.example.beatwell.ui.ViewModelFactory
+import com.example.beatwell.utils.dateFormater
+
 class ResultActivity : AppCompatActivity() {
 
     private val viewModel: ResultViewModel by viewModels {
@@ -22,13 +24,15 @@ class ResultActivity : AppCompatActivity() {
         val bundle = intent.extras
         if (bundle != null){
             val result = bundle.getInt("result")
-            setData(result)
+            val date = bundle.getString("date")
+            setData(result, date.toString())
         }
         binding.btnNext.setOnClickListener { moveToHistory() }
     }
 
-    private fun setData(result: Int) {
+    private fun setData(result: Int, date: String) {
         binding.tvPredict.text = result.toString()
+        binding.tvDate.text = dateFormater(date)
     }
 
     private fun moveToHistory() {

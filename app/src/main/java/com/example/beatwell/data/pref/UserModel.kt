@@ -24,7 +24,8 @@ data class PredictRequest(
     val totChol: Int,
     val sysBP: Int,
     val diaBP: Int,
-    val BMI: Int,
     val heartRate: Int,
-    val glucose: Int
+    val glucose: Int,
+    val height: Int,
+    val weight: Int
 )

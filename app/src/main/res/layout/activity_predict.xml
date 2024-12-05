@@ -183,27 +183,55 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/label_bmi"
+            android:id="@+id/label_height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bmi_label"
+            android:text="@string/height_label"
             android:textSize="20sp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_dia" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_bmi"
+            android:id="@+id/layout_height"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_bmi">
+            app:layout_constraintTop_toBottomOf="@+id/label_height">
 
             <EditText
-                android:id="@+id/ed_bmi"
+                android:id="@+id/ed_height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/label_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weight_label"
+            android:textSize="20sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_height" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_weight"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_weight">
+
+            <EditText
+                android:id="@+id/ed_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number" />
@@ -218,7 +246,7 @@
             android:layout_marginTop="8dp"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_bmi" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_weight" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_heartRate"

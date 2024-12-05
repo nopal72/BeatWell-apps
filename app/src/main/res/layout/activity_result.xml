@@ -71,6 +71,16 @@
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/tv_result"/>
 
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/date"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_predict" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
