@@ -61,7 +61,8 @@ class PredictActivity : AppCompatActivity() {
             totChol = binding.edChol.text.toString().toIntOrNull() ?: 0,
             sysBP = binding.edSys.text.toString().toIntOrNull() ?: 0,
             diaBP = binding.edDia.text.toString().toIntOrNull() ?: 0,
-            BMI = binding.edBmi.text.toString().toIntOrNull() ?: 0,
+            height = binding.edHeight.text.toString().toIntOrNull() ?: 0,
+            weight = binding.edWeight.text.toString().toIntOrNull() ?: 0,
             heartRate = binding.edHeartRate.text.toString().toIntOrNull() ?: 0,
             glucose = binding.edGlucose.text.toString().toIntOrNull() ?: 0
         )
@@ -94,7 +95,11 @@ class PredictActivity : AppCompatActivity() {
                 is Result.Success -> {
                     binding.progressBar.visibility = android.view.View.GONE
                     val intentResult = Intent(this, ResultActivity::class.java)
-                    intentResult.putExtra("result", result.data.data)
+                    val bundle = Bundle().apply {
+                        putInt("result", result.data.data.risk)
+                        putString("date", result.data.data.date)
+                    }
+                    intentResult.putExtras(bundle)
                     startActivity(intentResult)
                     finish()
                 }

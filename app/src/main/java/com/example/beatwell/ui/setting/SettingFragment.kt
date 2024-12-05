@@ -1,12 +1,15 @@
 package com.example.beatwell.ui.setting
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.example.beatwell.R
@@ -26,6 +29,15 @@ class SettingFragment : Fragment() {
     private lateinit var binding: FragmentSettingBinding
     private lateinit var alarmReceiver: AlarmReceiver
 
+    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission())
+    {   isGranted: Boolean->
+        if(isGranted){
+            Toast.makeText(context, "Notification permission granted", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context, "Notification permission rejected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -33,6 +45,10 @@ class SettingFragment : Fragment() {
         super.onCreate(savedInstanceState)
         binding = FragmentSettingBinding.inflate(inflater, container, false)
         alarmReceiver = AlarmReceiver()
+
+        if(Build.VERSION.SDK_INT > 32){
+            requestPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
 
         binding.btnSignOut.setOnClickListener {
             showConfirmationDialog()
@@ -101,7 +117,7 @@ class SettingFragment : Fragment() {
             )
         }
         else{
-            alarmReceiver.cancelAlarm(requireContext(), AlarmReceiver.TYPE_REPEATING)
+            alarmReceiver.cancelAlarm(requireContext())
         }
     }
 

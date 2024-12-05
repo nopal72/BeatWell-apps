@@ -7,18 +7,13 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.beatwell.R
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
-import java.util.Timer
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -27,7 +22,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val message = intent.getStringExtra(EXTRA_MESSAGE)
 
         if (message != null) {
-            showAlarmNotification(context, type.toString(), message, ID_ONETIME)
+            showAlarmNotification(context, type.toString(), message, ID_REPEATING)
         }
     }
 
@@ -64,26 +59,35 @@ class AlarmReceiver : BroadcastReceiver() {
         intent.putExtra(EXTRA_MESSAGE, message)
         intent.putExtra(EXTRA_TYPE, type)
 
-        val calender = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY,4)
-        }
+        val calender = Calendar.getInstance()
+        calender.set(Calendar.HOUR_OF_DAY,22)
+        calender.set(Calendar.MINUTE, 0)
+        calender.set(Calendar.SECOND, 0)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING,intent, PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calender.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            ID_REPEATING,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calender.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
 
         Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
     }
 
-
-    fun cancelAlarm(requireContext: Context, typeRepeating: String) {
+    fun cancelAlarm(requireContext: Context) {
         val alarmManager = requireContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext,
             ID_REPEATING,
             intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         alarmManager.cancel(pendingIntent)
@@ -93,16 +97,11 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val TYPE_ONE_TIME = "OneTimeAlarm"
         const val TYPE_REPEATING = "RepeatingAlarm"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
-        private const val ID_ONETIME = 100
-        private const val ID_REPEATING = 101
-
-        private const val DATE_FORMAT = "yyyy-MM-dd"
-        private const val TIME_FORMAT = "HH:mm"
+        private const val ID_REPEATING = 108
 
         private const val CHANNEL_ID = "Channel_1"
         private const val CHANNEL_NAME = "AlarmManager channel"
