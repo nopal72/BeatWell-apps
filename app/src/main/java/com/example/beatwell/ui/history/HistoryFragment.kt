@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.beatwell.data.entity.HistoryEntity
 import com.example.beatwell.databinding.FragmentHistoryBinding
 import com.example.beatwell.ui.ViewModelFactory
-import com.example.beatwell.utils.dateFormater
 import com.example.beatwell.utils.dateNumberFormater
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -48,10 +47,10 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setChart(historyItem: List<HistoryEntity>) {
-
+        val historyItemReversed = historyItem.reversed()
         val lineChart = binding.historyChart
 
-        val entries = historyItem.mapIndexed { index, data ->
+        val entries = historyItemReversed.mapIndexed { index, data ->
             Entry(index.toFloat(), data.prediction.toFloat())
         }
 
@@ -70,7 +69,7 @@ class HistoryFragment : Fragment() {
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
                     val index = value.toInt()
-                    return if (index in historyItem.indices) dateNumberFormater(historyItem[index].date) else ""
+                    return if (index in historyItemReversed.indices) dateNumberFormater(historyItemReversed[index].date) else ""
                 }
             }
         }

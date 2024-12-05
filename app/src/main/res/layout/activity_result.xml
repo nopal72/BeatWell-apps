@@ -48,6 +48,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/gradient_background_1"
                 android:padding="16dp">
 
                 <TextView
