@@ -17,6 +17,7 @@ import com.example.beatwell.ui.login.SignInViewModel
 import com.example.beatwell.ui.news.NewsViewModel
 import com.example.beatwell.ui.predict.PredictViewModel
 import com.example.beatwell.ui.register.SignUpViewModel
+import com.example.beatwell.ui.splash.SplashViewModel
 
 class ViewModelFactory(private val userRepository: UserRepository): ViewModelProvider.NewInstanceFactory() {
 
@@ -58,6 +59,9 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
             }
             modelClass.isAssignableFrom(ChatBotViewModel::class.java)->{
                 ChatBotViewModel(userRepository) as T
+            }
+            modelClass.isAssignableFrom(SplashViewModel::class.java)->{
+                SplashViewModel(userRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -46,9 +46,6 @@ class UserRepository private constructor(
     }
 
     suspend fun logout(){
-        CoroutineScope(Dispatchers.IO).launch {
-            historyDao.clearAllData()
-        }
         userPreference.logout()
     }
 
@@ -227,37 +224,39 @@ class UserRepository private constructor(
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.getSession().collect {user ->
-                val client = apiService.getHistory(
-                    user.userId.toInt(),
-                    user.token
-                )
-                client.enqueue(object : Callback<HistoryResponse>{
-                    override fun onResponse(
-                        call: Call<HistoryResponse>,
-                        response: Response<HistoryResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            val body = response.body()
-                            body?.let {
-                                val historyItems = it.historyItem.map {historyItem ->
-                                    HistoryEntity(
-                                        date = historyItem.createdAt,
-                                        prediction = historyItem.result
-                                    )
-                                }
-                                appExecutors.diskIO.execute {
-                                    historyDao.insertHistory(historyItems)
+                if(user.token != ""){
+                    val client = apiService.getHistory(
+                        user.userId.toInt(),
+                        user.token
+                    )
+                    client.enqueue(object : Callback<HistoryResponse>{
+                        override fun onResponse(
+                            call: Call<HistoryResponse>,
+                            response: Response<HistoryResponse>
+                        ) {
+                            if (response.isSuccessful) {
+                                val body = response.body()
+                                body?.let {
+                                    val historyItems = it.historyItem.map {historyItem ->
+                                        HistoryEntity(
+                                            date = historyItem.createdAt,
+                                            prediction = historyItem.result
+                                        )
+                                    }
+                                    appExecutors.diskIO.execute {
+                                        historyDao.insertHistory(historyItems)
+                                    }
                                 }
                             }
                         }
-                    }
-                    override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
-                        result.value = Result.Error(t.toString())
-                    }
-                })
-                val latestHistory = historyDao.getLastHistory()
-                Log.d("UserRepository", "latestHistory: $latestHistory")
-                result.postValue(Result.Success(latestHistory))
+                        override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+                            result.value = Result.Error(t.toString())
+                        }
+                    })
+                    val latestHistory = historyDao.getLastHistory()
+                    Log.d("UserRepository", "latestHistory: $latestHistory")
+                    result.postValue(Result.Success(latestHistory))
+                }
             }
         }
         return result
@@ -265,19 +264,6 @@ class UserRepository private constructor(
 
     fun getAllHistory(): LiveData<List<HistoryEntity>> {
         return historyDao.getAllHistory()
-    }
-
-    fun getResult(date: String): LiveData<Result<HistoryEntity>> {
-        val result = MutableLiveData<Result<HistoryEntity>>()
-        result.value = Result.Loading
-
-        appExecutors.diskIO.execute {
-            val history = historyDao.getHistoryById(date)
-            Log.d("ResultActivity", "prediction: $history")
-            result.postValue(Result.Success(history))
-        }
-
-        return result
     }
 
     fun getFoods(): LiveData<Result<FoodsResponse>> {

@@ -28,15 +28,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lifecycleScope.launch {
-            viewModel.getSession().observe(this@LoginActivity) { user ->
-                if (user.isLogin) {
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
-                }
-            }
-        }
-
         setAnimation()
 
         binding.btnSignIn.setOnClickListener {

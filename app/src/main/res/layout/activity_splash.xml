@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_splash_scene"
+    tools:context=".ui.splash.SplashActivity">
+
+
+    <ImageView
+        android:id="@+id/im_menu_1"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/img_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <ImageView
+        android:id="@+id/im_menu_2"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/im_menu_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/title_menu_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal"
+        android:text="Jaga Jantung Anda"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/im_menu_1"
+        app:layout_constraintStart_toStartOf="@id/im_menu_1"
+        app:layout_constraintTop_toBottomOf="@+id/im_menu_1" />
+
+    <TextView
+        android:id="@+id/desc_menu_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Mulailah menjaga kesehatan jantung Anda hari ini untuk hidup yang lebih sehat dan bahagia."
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/title_menu_1"
+        app:layout_constraintStart_toStartOf="@id/title_menu_1"
+        app:layout_constraintEnd_toEndOf="@id/title_menu_1"/>
+
+
+
+    <TextView
+        android:id="@+id/title_menu_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Risiko yang Tidak Disadari"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/im_menu_2"
+        app:layout_constraintStart_toStartOf="@id/im_menu_2"
+        app:layout_constraintEnd_toEndOf="@id/im_menu_2"/>
+
+    <TextView
+        android:id="@+id/desc_menu_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Tahukah Anda? Banyak penderita penyakit jantung tidak menyadari risiko yang mereka hadapi."
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/title_menu_2"
+        app:layout_constraintStart_toStartOf="@id/title_menu_2"
+        app:layout_constraintEnd_toEndOf="@id/title_menu_2"/>
+
+    <TextView
+        android:id="@+id/title_menu_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal"
+        android:text="Bersama Menuju Sehat"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/desc_menu_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Mulai perjalanan menuju jantung yang lebih sehat bersama aplikasi kami."
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/title_menu_3"
+        app:layout_constraintStart_toStartOf="@id/title_menu_3"
+        app:layout_constraintEnd_toEndOf="@id/title_menu_3"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="masuk akun"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@+id/desc_menu_3"
+        app:layout_constraintStart_toStartOf="@id/desc_menu_3"
+        app:layout_constraintEnd_toEndOf="@id/desc_menu_3"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="daftar akun"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/moss_green"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintStart_toStartOf="@id/btn_login"
+        app:layout_constraintEnd_toEndOf="@id/btn_login"/>
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintEnd_toStartOf="@+id/menu2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/moss_green" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/menu1"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/menu1"
+        app:layout_constraintTop_toTopOf="@+id/menu1"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/moss_green" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/menu2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/menu2"
+        app:layout_constraintTop_toTopOf="@+id/menu2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/moss_green" />
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/beatwell_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

@@ -61,8 +61,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val calender = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY,22)
-        calender.set(Calendar.MINUTE, 0)
-        calender.set(Calendar.SECOND, 0)
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -97,7 +95,7 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val TYPE_REPEATING = "RepeatingAlarm"
+        const val TYPE_REPEATING = "Sleep Alarm"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
