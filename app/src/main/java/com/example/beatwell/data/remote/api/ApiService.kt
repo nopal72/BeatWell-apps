@@ -1,5 +1,6 @@
 package com.example.beatwell.data.remote.api
 
+import com.example.beatwell.BuildConfig
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
@@ -80,6 +81,7 @@ interface ApiService {
     @GET("v2/top-headlines")
     fun getNews(
         @Query("q") query: String = "health",
-        @Query("apiKey") apiKey: String = "8b5c302a4ca54e198d88dc1d18b9c37b"
+        @Query("category") category: String = "health",
+        @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
     ): Call<NewsResponse>
 }
