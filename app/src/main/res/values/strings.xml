@@ -109,4 +109,5 @@
     <string name="text_no_data">No Data Yet</string>
     <string name="text_data_confirmation">Data Confirmation</string>
     <string name="text_desc_data_confirmation">Is the data correct and you want to continue?</string>
+    <string name="language_button">language button</string>
 </resources>
