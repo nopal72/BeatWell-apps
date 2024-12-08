@@ -50,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
             duration = 6000
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
-        }
+        }.start()
         val tagline = ObjectAnimator.ofFloat(binding.appTagline, View.ALPHA, 1f).setDuration(500)
         val name = ObjectAnimator.ofFloat(binding.textName, View.ALPHA, 1f).setDuration(500)
         val email = ObjectAnimator.ofFloat(binding.textEmail, View.ALPHA, 1f).setDuration(500)
@@ -89,7 +89,7 @@ class RegisterActivity : AppCompatActivity() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                     binding.textError.visibility = View.VISIBLE
-                    binding.textError.text = "email sudah digunakan"
+                    binding.textError.text = getString(R.string.email_already_in_use)
                 }
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE

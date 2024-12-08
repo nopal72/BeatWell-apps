@@ -91,6 +91,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_cigs">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_cigs"
                 android:id="@+id/ed_cig"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -119,6 +121,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_chol">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_chol"
                 android:id="@+id/ed_chol"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -147,6 +151,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_sys">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_sys"
                 android:id="@+id/ed_sys"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -175,6 +181,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_dia">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_dia"
                 android:id="@+id/ed_dia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -203,6 +211,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_height">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_height"
                 android:id="@+id/ed_height"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -231,6 +241,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_weight">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_weight"
                 android:id="@+id/ed_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -259,6 +271,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_heartRate">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_heartRate"
                 android:id="@+id/ed_heartRate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -287,6 +301,8 @@
             app:layout_constraintTop_toBottomOf="@+id/label_glucose">
 
             <EditText
+                android:autofillHints=""
+                android:labelFor="@id/layout_glucose"
                 android:id="@+id/ed_glucose"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

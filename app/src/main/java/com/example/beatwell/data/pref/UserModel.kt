@@ -17,7 +17,7 @@ data class PredictRequest(
     val sex: String,
     val age: Int,
     val cigsPerday: Int,
-    val BPMeds: Boolean,
+    val bPMeds: Boolean,
     val prevalentStroke: Boolean,
     val prevalentHyp: Boolean,
     val diabetes: Boolean,

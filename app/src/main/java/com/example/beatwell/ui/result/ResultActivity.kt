@@ -36,12 +36,12 @@ class ResultActivity : AppCompatActivity() {
             val date = bundle.getString("date")
             val newData = HistoryEntity(date = date.toString(), prediction = result)
             setData(result, date.toString())
-            setHistoryChart(newData)
+            setHistoryChart()
         }
         binding.btnNext.setOnClickListener { moveToHistory() }
     }
 
-    private fun setHistoryChart(newData: HistoryEntity) {
+    private fun setHistoryChart() {
         viewModel.getHistory().observe(this) { historyItem ->
             val historyItemReversed = historyItem.reversed()
             val lineChart = binding.historyChart

@@ -1,6 +1,5 @@
 package com.example.beatwell.ui.login
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,13 +9,9 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.beatwell.databinding.FragmentSignInBinding
-import com.example.beatwell.ui.ViewModelFactory
 
 class SignInFragment : Fragment() {
 
-    private val viewModel: SignInViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
     private lateinit var binding: FragmentSignInBinding
     private lateinit var webView: WebView
 

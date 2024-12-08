@@ -47,6 +47,7 @@
                             android:id="@+id/ic_lamp"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:contentDescription="@string/lamp_image"
                             android:src="@drawable/lamp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

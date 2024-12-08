@@ -18,7 +18,7 @@ import com.example.beatwell.databinding.FragmentSettingBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.alarm.AlarmReceiver
 import com.example.beatwell.ui.edit_account_dialog.EditAccountDialog
-import com.example.beatwell.ui.splash.SplashActivity
+import com.example.beatwell.ui.splash.OnBoarding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -87,7 +87,7 @@ class SettingFragment : Fragment() {
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         viewModel.logOut()
-                        startActivity(Intent(requireContext(), SplashActivity::class.java))
+                        startActivity(Intent(requireContext(), OnBoarding::class.java))
                     }
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -123,7 +123,7 @@ class SettingFragment : Fragment() {
         builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
             dialog.dismiss()
             viewModel.logOut()
-            startActivity(Intent(requireContext(), SplashActivity::class.java))
+            startActivity(Intent(requireContext(), OnBoarding::class.java))
         }
 
         builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->

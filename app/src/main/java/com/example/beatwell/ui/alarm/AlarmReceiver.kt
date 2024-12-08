@@ -22,11 +22,11 @@ class AlarmReceiver : BroadcastReceiver() {
         val message = intent.getStringExtra(EXTRA_MESSAGE)
 
         if (message != null) {
-            showAlarmNotification(context, type.toString(), message, ID_REPEATING)
+            showAlarmNotification(context, type.toString(), message)
         }
     }
 
-    private fun showAlarmNotification(context: Context, title: String, message: String, notifId: Int){
+    private fun showAlarmNotification(context: Context, title: String, message: String){
         val channelId = CHANNEL_ID
         val channelName = CHANNEL_NAME
 

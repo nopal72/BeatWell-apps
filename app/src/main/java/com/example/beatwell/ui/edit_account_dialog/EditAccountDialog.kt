@@ -14,7 +14,7 @@ import com.example.beatwell.data.Result
 import com.example.beatwell.data.pref.EditAccountRequest
 import com.example.beatwell.databinding.EditProfileDialogBinding
 import com.example.beatwell.ui.ViewModelFactory
-import com.example.beatwell.ui.splash.SplashActivity
+import com.example.beatwell.ui.splash.OnBoarding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -90,7 +90,7 @@ class EditAccountDialog: DialogFragment() {
                             binding.textError.visibility = View.GONE
                             showToast(result.data.message)
                             viewModel.logOut()
-                            startActivity(Intent(requireContext(), SplashActivity::class.java))
+                            startActivity(Intent(requireContext(), OnBoarding::class.java))
                             dismiss()
                         }
                     }

@@ -4,19 +4,16 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.beatwell.MainActivity
 import com.example.beatwell.R
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.data.Result
 import com.example.beatwell.databinding.ActivityLoginBinding
 import com.example.beatwell.ui.register.RegisterActivity
-import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 

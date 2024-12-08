@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beatwell.data.entity.HistoryEntity
-import com.example.beatwell.data.remote.response.HistoryItem
 import com.example.beatwell.databinding.HistoryCardBinding
 import com.example.beatwell.utils.dateFormater
 

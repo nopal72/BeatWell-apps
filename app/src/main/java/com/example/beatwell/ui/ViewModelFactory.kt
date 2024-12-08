@@ -3,7 +3,6 @@ package com.example.beatwell.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.beatwell.MainViewModel
 import com.example.beatwell.data.UserRepository
 import com.example.beatwell.di.Injection
 import com.example.beatwell.ui.chatbot.ChatBotViewModel
@@ -48,9 +47,6 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
             }
             modelClass.isAssignableFrom(PredictViewModel::class.java)->{
                 PredictViewModel(userRepository) as T
-            }
-            modelClass.isAssignableFrom(MainViewModel::class.java)->{
-                MainViewModel(userRepository) as T
             }
             modelClass.isAssignableFrom(FoodDetailViewModel::class.java)->{
                 FoodDetailViewModel(userRepository) as T
