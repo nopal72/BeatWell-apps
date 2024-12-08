@@ -1,5 +1,7 @@
 package com.example.beatwell.ui.news
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -18,6 +20,10 @@ class NewsAdapter: ListAdapter<ArticlesItem, NewsAdapter.MyViewHolder>(DIFF_CALL
             binding.titleNews.text = data.title
             binding.titleDescription.text = data.description
             binding.tvDate.text = data.publishedAt
+            binding.read.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
