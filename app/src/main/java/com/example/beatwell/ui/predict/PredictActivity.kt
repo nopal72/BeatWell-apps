@@ -38,7 +38,7 @@ class PredictActivity : AppCompatActivity() {
             },
             age = binding.edAge.text.toString().toIntOrNull() ?: 0,
             cigsPerday = binding.edCig.text.toString().toIntOrNull() ?: 0,
-            bPMeds = when (binding.radioBPMeds.checkedRadioButtonId) {
+            BPMeds = when (binding.radioBPMeds.checkedRadioButtonId) {
                 binding.BPMedsTrue.id -> true
                 binding.BPMedsFalse.id -> false
                 else -> false
