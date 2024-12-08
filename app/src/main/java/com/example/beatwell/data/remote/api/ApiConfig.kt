@@ -13,7 +13,8 @@ object ApiConfig {
 
     fun getApiService(): ApiService {
         val loggingInterceptor =
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            if(BuildConfig.DEBUG) { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) }
+            else { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE) }
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
