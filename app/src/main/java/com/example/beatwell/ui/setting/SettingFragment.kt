@@ -58,7 +58,7 @@ class SettingFragment : Fragment() {
         switchSetup()
         getDailyReminder()
         settingLanguage()
-//        settingUser()
+        settingUser()
 
         return binding.root
     }

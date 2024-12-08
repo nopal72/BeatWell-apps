@@ -15,7 +15,7 @@
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:src="@drawable/img_login"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/menu2"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
@@ -141,11 +141,10 @@
         android:id="@+id/menu1"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="32dp"
         app:altSrc="@drawable/ic_circle_full_24"
-        app:layout_constraintEnd_toStartOf="@+id/menu2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/menu2"
+        app:layout_constraintEnd_toStartOf="@id/menu2"
+        app:layout_constraintTop_toTopOf="@id/menu2"
         app:srcCompat="@drawable/ic_circle_24"
         app:tint="@color/moss_green" />
 
@@ -154,11 +153,10 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:altSrc="@drawable/ic_circle_full_24"
-        app:layout_constraintBottom_toBottomOf="@+id/menu1"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/menu1"
-        app:layout_constraintTop_toTopOf="@+id/menu1"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         app:srcCompat="@drawable/ic_circle_24"
         app:tint="@color/moss_green" />
 
@@ -181,6 +179,7 @@
         android:layout_height="250dp"
         android:layout_marginTop="100dp"
         android:src="@drawable/beatwell_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

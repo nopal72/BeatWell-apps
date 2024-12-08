@@ -3,10 +3,10 @@ package com.example.beatwell.ui.result
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.beatwell.MainActivity
+import com.example.beatwell.R
 import com.example.beatwell.data.entity.HistoryEntity
 import com.example.beatwell.databinding.ActivityResultBinding
 import com.example.beatwell.ui.ViewModelFactory
@@ -79,7 +79,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setData(result: Int, date: String) {
-        binding.tvPredict.text = result.toString()
+        binding.tvPredict.text = getString(R.string.prediction_result, result.toString())
         binding.tvDate.text = dateFormater(date)
     }
 

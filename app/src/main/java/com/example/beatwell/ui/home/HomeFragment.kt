@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     if (result.data != null){
                         binding.textDate.text = dateFormater(result.data.date)
-                        binding.textResult.text = result.data.prediction.toString()
+                        binding.textResult.text = getString(R.string.prediction_result, result.data.prediction.toString())
                     } else {
                         binding.textResult.text = "-"
                         binding.textDate.text = getString(R.string.text_no_data)
