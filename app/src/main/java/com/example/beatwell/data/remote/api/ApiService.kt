@@ -1,10 +1,12 @@
 package com.example.beatwell.data.remote.api
 
 import com.example.beatwell.BuildConfig
+import com.example.beatwell.data.pref.EditAccountRequest
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
 import com.example.beatwell.data.remote.response.DeleteUserResponse
+import com.example.beatwell.data.remote.response.EditAccountResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
@@ -20,6 +22,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -86,6 +89,12 @@ interface ApiService {
         @Query("category") category: String = "health",
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
     ): Call<NewsResponse>
+
+    @PATCH("/users")
+    fun editAccount(
+        @Header("Authorization") token: String,
+        @Body request: EditAccountRequest
+    ): Call<EditAccountResponse>
 
     @DELETE("/users")
     fun deleteUser(

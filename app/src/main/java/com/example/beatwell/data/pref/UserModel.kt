@@ -29,3 +29,9 @@ data class PredictRequest(
     val height: Int,
     val weight: Int
 )
+
+data class EditAccountRequest(
+    val name: String? = null,
+    val email: String? = null,
+    val password: String? = null
+)

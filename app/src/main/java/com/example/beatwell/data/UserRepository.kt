@@ -3,6 +3,7 @@ package com.example.beatwell.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.beatwell.data.entity.HistoryEntity
+import com.example.beatwell.data.pref.EditAccountRequest
 import com.example.beatwell.data.pref.MessageModel
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.pref.UserModel
@@ -12,6 +13,7 @@ import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
 import com.example.beatwell.data.remote.response.DeleteUserResponse
+import com.example.beatwell.data.remote.response.EditAccountResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
@@ -115,6 +117,36 @@ class UserRepository private constructor(
             }
 
         })
+        return result
+    }
+
+    fun editAccount(request: EditAccountRequest): LiveData<Result<EditAccountResponse>> {
+        val result = MutableLiveData<Result<EditAccountResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect { user ->
+                val client = apiService.editAccount(user.token, request)
+                client.enqueue(object : Callback<EditAccountResponse>{
+                    override fun onResponse(
+                        call: Call<EditAccountResponse>,
+                        response: Response<EditAccountResponse>
+                    ) {
+                        if (response.isSuccessful){
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(it)
+                            }
+                        }else{
+                            result.value = Result.Error(response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<EditAccountResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
         return result
     }
 

@@ -52,16 +52,24 @@ class SettingFragment : Fragment() {
             requestPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        binding.btnSignOut.setOnClickListener { showConfirmationLogout() }
-        binding.btnDeleteAccount.setOnClickListener { showConfirmationDelete() }
-
         switchSetup()
         getDailyReminder()
         settingLanguage()
         settingUser()
         setEditDialog()
+        setDeleteUser()
+        setLogOut()
 
         return binding.root
+    }
+
+    private fun setLogOut() {
+        binding.btnSignOut.setOnClickListener { showConfirmationLogout() }
+    }
+
+    private fun setDeleteUser() {
+        binding.btnDeleteAccount.setOnClickListener { showConfirmationDelete() }
+
     }
 
     private fun showConfirmationDelete() {
