@@ -124,6 +124,7 @@ class SettingFragment : Fragment() {
             dialog.dismiss()
             viewModel.logOut()
             startActivity(Intent(requireContext(), OnBoarding::class.java))
+            requireActivity().finish()
         }
 
         builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
