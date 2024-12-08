@@ -21,7 +21,6 @@ class RegisterActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityRegisterBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -33,7 +32,12 @@ class RegisterActivity : AppCompatActivity() {
             val name = binding.edRegisterName.text.toString()
             val email = binding.edRegisterEmail.text.toString()
             val password = binding.edRegisterPassword.text.toString()
-            registerUser(name, email, password)
+            val verifyPassword = binding.edVerifyPassword.text.toString()
+            if (password == verifyPassword) {
+                registerUser(name, email, password)
+            } else {
+                showToast(getString(R.string.text_password_doesnt_match))
+            }
         }
 
         binding.textLogin.setOnClickListener {
@@ -41,7 +45,6 @@ class RegisterActivity : AppCompatActivity() {
         }
 
     }
-
     private fun setAnimation() {
         ObjectAnimator.ofFloat(binding.appLogo,View.TRANSLATION_X, -30f, 30f).apply {
             duration = 6000
@@ -69,7 +72,6 @@ class RegisterActivity : AppCompatActivity() {
             start()
         }
     }
-
     private fun registerUser(name: String, email: String, password: String) {
         viewModel.register(name, email, password).observe(this) {result->
             when(result) {

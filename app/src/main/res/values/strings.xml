@@ -49,12 +49,12 @@
     <string name="prediction_desc">Fill out the fields below according to your condition</string>
     <string name="label_age">Age</string>
     <string name="cig_label">Number of cigarettes per day</string>
-    <string name="chol_label">Total Cholesterol</string>
-    <string name="systolik_label">Systolic Blood Pressure</string>
-    <string name="diastolik_label">Diastolic Blood Pressure</string>
+    <string name="chol_label">Total Cholesterol (mg/dl)</string>
+    <string name="systolik_label">Systolic Blood Pressure (mg/dl)</string>
+    <string name="diastolik_label">Diastolic Blood Pressure (mmHg)</string>
     <string name="bmi_label">BMI Value</string>
-    <string name="heart_label">Heart Rate</string>
-    <string name="glucose_label">Glucose Level</string>
+    <string name="heart_label">Heart Rate (bp/m)</string>
+    <string name="glucose_label">Glucose Level (mg/dl)</string>
     <string name="gender_label">Gender</string>
     <string name="bpmeds_label">Are you taking blood pressure medication?</string>
     <string name="stroke_label">Do you have a history of stroke?</string>
@@ -104,8 +104,8 @@
     <string name="beatwell_tagline">Early Detection, Healthy Heart, Meaningful Life</string>
     <string name="text_chatbot_heading">Ask any complaints or questions related to your heart disease</string>
     <string name="heart_image">Heart Image</string>
-    <string name="height_label">Height</string>
-    <string name="weight_label">Weight</string>
+    <string name="height_label">Height (cm)</string>
+    <string name="weight_label">Weight (kg)</string>
     <string name="text_no_data">No Data Yet</string>
     <string name="text_data_confirmation">Data Confirmation</string>
     <string name="text_desc_data_confirmation">Is the data correct and you want to continue?</string>
@@ -114,4 +114,10 @@
     <string name="text_login_error">wrong password or email</string>
     <string name="text_edit_account">Edit account</string>
     <string name="cancel">cancel</string>
+    <string name="text_confirm_exit">Confirm Exit</string>
+    <string name="text_desc_confirm_exit">Are you sure you want to quit?</string>
+    <string name="text_time_to_sleep">It\'s time to sleep, let\'s rest</string>
+    <string name="text_password_doesnt_match">Password is not the same</string>
+    <string name="text_warning">warning</string>
+    <string name="text_early_prediction">This is an early prediction. For further examination please see a doctor</string>
 </resources>

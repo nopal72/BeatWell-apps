@@ -90,8 +90,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
         alarmManager.cancel(pendingIntent)
         pendingIntent.cancel()
-
-        Toast.makeText(requireContext, "Repeating alarm canceled", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

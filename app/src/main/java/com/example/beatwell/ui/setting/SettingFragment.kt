@@ -117,8 +117,8 @@ class SettingFragment : Fragment() {
 
     private fun showConfirmationLogout() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Konfirmasi Keluar")
-        builder.setMessage("Apakah anda yakin ingin keluar?")
+        builder.setTitle(getString(R.string.text_confirm_exit))
+        builder.setMessage(getString(R.string.text_desc_confirm_exit))
 
         builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
             dialog.dismiss()
@@ -166,7 +166,7 @@ class SettingFragment : Fragment() {
             alarmReceiver.setRepeatingAlarm(
                 requireContext(),
                 AlarmReceiver.TYPE_REPEATING,
-                "Sudah saatnya tidur, yuk beristirahat"
+                getString(R.string.text_time_to_sleep)
             )
         }
         else{

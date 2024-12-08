@@ -2,7 +2,6 @@ package com.example.beatwell.ui.edit_account_dialog
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +67,7 @@ class EditAccountDialog: DialogFragment() {
         confirmPassword: String? = null
     ) {
         if (password != confirmPassword){
-            binding.edVerifyPassword.error = "Password tidak sama"
+            binding.edVerifyPassword.error = getString(R.string.text_password_doesnt_match)
         }
         else{
             val request = EditAccountRequest(
@@ -117,7 +116,7 @@ class EditAccountDialog: DialogFragment() {
         }
     }
 
-    fun showToast(message: String){
+    private fun showToast(message: String){
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
