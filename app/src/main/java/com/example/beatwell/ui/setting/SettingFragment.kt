@@ -13,10 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.example.beatwell.R
+import com.example.beatwell.data.Result
 import com.example.beatwell.databinding.FragmentSettingBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.alarm.AlarmReceiver
-import com.example.beatwell.ui.login.LoginActivity
+import com.example.beatwell.ui.edit_account_dialog.EditAccountDialog
 import com.example.beatwell.ui.splash.SplashActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,19 +52,62 @@ class SettingFragment : Fragment() {
             requestPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        binding.btnSignOut.setOnClickListener {
-            showConfirmationDialog()
-        }
+        binding.btnSignOut.setOnClickListener { showConfirmationLogout() }
+        binding.btnDeleteAccount.setOnClickListener { showConfirmationDelete() }
 
         switchSetup()
         getDailyReminder()
         settingLanguage()
         settingUser()
+        setEditDialog()
 
         return binding.root
     }
 
-    private fun showConfirmationDialog() {
+    private fun showConfirmationDelete() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Konfirmasi Hapus Akun")
+        builder.setMessage("Apakah anda yakin ingin menghapus akun?")
+
+        builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
+            dialog.dismiss()
+            viewModel.deleteAccount().observe(viewLifecycleOwner) {result->
+                when(result){
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        viewModel.logOut()
+                        startActivity(Intent(requireContext(), SplashActivity::class.java))
+                    }
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        showToast(result.error)
+                    }
+                }
+            }
+        }
+
+        builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.create().show()
+    }
+
+    private fun setEditDialog() {
+        binding.btnAccount.setOnClickListener {
+            val dialog = EditAccountDialog()
+            dialog.show(parentFragmentManager, "editAccount")
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showConfirmationLogout() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Konfirmasi Keluar")
         builder.setMessage("Apakah anda yakin ingin keluar?")

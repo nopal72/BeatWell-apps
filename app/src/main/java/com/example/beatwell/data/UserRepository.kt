@@ -1,6 +1,5 @@
 package com.example.beatwell.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.beatwell.data.entity.HistoryEntity
@@ -12,6 +11,7 @@ import com.example.beatwell.data.remote.api.ApiConfig
 import com.example.beatwell.data.remote.api.ApiService
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
+import com.example.beatwell.data.remote.response.DeleteUserResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
@@ -58,9 +58,7 @@ class UserRepository private constructor(
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
-                    Log.d("UserRepository", "onResponse: $responseBody")
                     if (!responseBody?.error!!) {
-                        Log.d("UserRepository", "onResponse.loginData: ${responseBody.loginData}")
                         val loginData = responseBody.loginData
                         val user = UserModel(
                             userId = loginData.id.toString(),
@@ -117,6 +115,35 @@ class UserRepository private constructor(
             }
 
         })
+        return result
+    }
+
+    fun deleteAccount(): LiveData<Result<DeleteUserResponse>> {
+        val result = MutableLiveData<Result<DeleteUserResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect{user->
+                val client = apiService.deleteUser(user.token)
+                client.enqueue(object : Callback<DeleteUserResponse>{
+                    override fun onResponse(
+                        call: Call<DeleteUserResponse>,
+                        response: Response<DeleteUserResponse>
+                    ) {
+                        if(response.isSuccessful){
+                            val body = response.body()
+                            body?.let {
+                                result.value = Result.Success(it)
+                            }
+                        }else{
+                            result.value = Result.Error(response.message())
+                        }
+                    }
+                    override fun onFailure(call: Call<DeleteUserResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
         return result
     }
 
@@ -254,7 +281,6 @@ class UserRepository private constructor(
                         }
                     })
                     val latestHistory = historyDao.getLastHistory()
-                    Log.d("UserRepository", "latestHistory: $latestHistory")
                     result.postValue(Result.Success(latestHistory))
                 }
             }

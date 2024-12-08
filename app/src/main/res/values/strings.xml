@@ -92,7 +92,7 @@
     <string name="text_username">Username</string>
     <string name="username_email">username@gmail.com</string>
     <string name="text_account">Account</string>
-    <string name="text_account_detail">Account Details</string>
+    <string name="text_account_detail">Edit Account</string>
     <string name="text_delete_account">Delete Account</string>
     <string name="text_logout">Logout</string>
     <string name="text_feedback">Give Feedback</string>
@@ -110,4 +110,8 @@
     <string name="text_data_confirmation">Data Confirmation</string>
     <string name="text_desc_data_confirmation">Is the data correct and you want to continue?</string>
     <string name="language_button">language button</string>
+    <string name="text_welcome">welcome</string>
+    <string name="text_login_error">wrong password or email</string>
+    <string name="text_edit_account">Edit account</string>
+    <string name="cancel">cancel</string>
 </resources>

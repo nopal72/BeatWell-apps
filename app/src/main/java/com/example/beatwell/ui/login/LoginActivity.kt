@@ -6,10 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.beatwell.MainActivity
+import com.example.beatwell.R
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.data.Result
 import com.example.beatwell.databinding.ActivityLoginBinding
@@ -72,17 +74,22 @@ class LoginActivity : AppCompatActivity() {
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
                     startActivity(Intent(this, MainActivity::class.java))
+                    showToast(getString(R.string.text_welcome))
                     finish()
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.textError.visibility = View.VISIBLE
-                    binding.textError.text = "password atau email salah"
+                    showToast(result.error)
+                    binding.textError.text = getString(R.string.text_login_error)
                 }
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }
+    }
+    private fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

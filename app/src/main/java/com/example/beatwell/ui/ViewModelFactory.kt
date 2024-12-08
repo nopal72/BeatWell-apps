@@ -7,6 +7,7 @@ import com.example.beatwell.MainViewModel
 import com.example.beatwell.data.UserRepository
 import com.example.beatwell.di.Injection
 import com.example.beatwell.ui.chatbot.ChatBotViewModel
+import com.example.beatwell.ui.edit_account_dialog.EditAccountDialogViewModel
 import com.example.beatwell.ui.home.HomeViewModel
 import com.example.beatwell.ui.food.FoodViewModel
 import com.example.beatwell.ui.foodDetail.FoodDetailViewModel
@@ -62,6 +63,9 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
             }
             modelClass.isAssignableFrom(SplashViewModel::class.java)->{
                 SplashViewModel(userRepository) as T
+            }
+            modelClass.isAssignableFrom(EditAccountDialogViewModel::class.java)->{
+                EditAccountDialogViewModel(userRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

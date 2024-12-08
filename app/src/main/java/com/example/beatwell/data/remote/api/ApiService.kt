@@ -4,6 +4,7 @@ import com.example.beatwell.BuildConfig
 import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
+import com.example.beatwell.data.remote.response.DeleteUserResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
 import com.example.beatwell.data.remote.response.HistoryResponse
@@ -14,6 +15,7 @@ import com.example.beatwell.data.remote.response.RegisterResponse
 import com.example.beatwell.data.remote.response.TriviaResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -84,4 +86,9 @@ interface ApiService {
         @Query("category") category: String = "health",
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
     ): Call<NewsResponse>
+
+    @DELETE("/users")
+    fun deleteUser(
+        @Header("Authorization") token: String
+    ): Call<DeleteUserResponse>
 }

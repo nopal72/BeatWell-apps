@@ -6,8 +6,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beatwell.data.UserRepository
 import com.example.beatwell.data.pref.UserModel
+import com.example.beatwell.data.remote.response.DeleteUserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import com.example.beatwell.data.Result
 
 class SettingViewModel(private val userRepository: UserRepository): ViewModel() {
     fun logOut() {
@@ -15,6 +17,9 @@ class SettingViewModel(private val userRepository: UserRepository): ViewModel() 
             userRepository.logout()
         }
     }
+
+    fun deleteAccount(): LiveData<Result<DeleteUserResponse>> = userRepository.deleteAccount()
+
 
     fun getDailyReminder(): LiveData<Boolean> {
         return userRepository.getDailyReminder().asLiveData()
