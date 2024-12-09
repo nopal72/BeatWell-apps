@@ -47,6 +47,10 @@ class UserRepository private constructor(
         return userPreference.getSession()
     }
 
+        suspend fun clearHistory() {
+            historyDao.clearAllData()
+        }
+
     suspend fun logout(){
         userPreference.logout()
     }

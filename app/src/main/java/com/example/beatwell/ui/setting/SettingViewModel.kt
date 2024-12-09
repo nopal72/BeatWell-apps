@@ -10,10 +10,12 @@ import com.example.beatwell.data.remote.response.DeleteUserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import com.example.beatwell.data.Result
+import kotlinx.coroutines.Dispatchers
 
 class SettingViewModel(private val userRepository: UserRepository): ViewModel() {
     fun logOut() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.clearHistory()
             userRepository.logout()
         }
     }
