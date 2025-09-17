@@ -1,8 +1,10 @@
 package com.example.beatwell.data.remote.api
 
 import com.example.beatwell.BuildConfig
+import com.example.beatwell.data.pref.ChatBotRequest
+import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.data.pref.EditAccountRequest
-import com.example.beatwell.data.pref.PredictRequest
+import com.example.beatwell.data.pref.LoginRequest
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
 import com.example.beatwell.data.remote.response.DeleteUserResponse
@@ -45,11 +47,9 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<HistoryResponse>
 
-    @FormUrlEncoded
     @POST("/login")
     fun login(
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Body request: LoginRequest
     ): Call<LoginResponse>
 
     @FormUrlEncoded
@@ -60,16 +60,16 @@ interface ApiService {
         @Field("password") password: String
     ): Call<RegisterResponse>
 
-    @FormUrlEncoded
-    @POST("/chatbot")
+
+    @POST("/chat")
     fun chatBot(
-        @Field("message") message: String,
+        @Body request: ChatBotRequest,
         @Header("Authorization") token: String
     ): Call<ChatbotResponse>
 
-    @POST("/prediction")
+    @POST("/predict")
     fun predict(
-        @Body request: PredictRequest,
+        @Body request: ChdRequest,
         @Header("Authorization") token: String
     ): Call<PredictResponse>
 

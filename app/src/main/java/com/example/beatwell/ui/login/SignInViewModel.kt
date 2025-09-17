@@ -7,5 +7,5 @@ import com.example.beatwell.data.remote.response.LoginResponse
 import com.example.beatwell.data.Result
 
 class SignInViewModel(private val userRepository: UserRepository) : ViewModel() {
-    fun login(email: String, password: String): LiveData<Result<LoginResponse>> = userRepository.login(email, password)
+    fun login(username: String, password: String): LiveData<Result<LoginResponse>> = userRepository.login(username, password)
 }

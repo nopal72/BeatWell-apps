@@ -109,8 +109,8 @@ class EditAccountDialog: DialogFragment() {
         CoroutineScope(Dispatchers.IO).launch {
             viewModel.getUser().collect{user->
                 withContext(Dispatchers.Main){
-                    binding.edRegisterName.setText(user.name)
-                    binding.edRegisterEmail.setText(user.email)
+                    binding.edRegisterName.setText("berhasil masuk")
+                    binding.edRegisterEmail.setText("berhasil masuk")
                 }
             }
         }

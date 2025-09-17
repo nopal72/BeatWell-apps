@@ -1,11 +1,14 @@
 package com.example.beatwell.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.beatwell.data.entity.HistoryEntity
+import com.example.beatwell.data.pref.ChatBotRequest
+import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.data.pref.EditAccountRequest
+import com.example.beatwell.data.pref.LoginRequest
 import com.example.beatwell.data.pref.MessageModel
-import com.example.beatwell.data.pref.PredictRequest
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
 import com.example.beatwell.data.remote.api.ApiConfig
@@ -16,7 +19,6 @@ import com.example.beatwell.data.remote.response.DeleteUserResponse
 import com.example.beatwell.data.remote.response.EditAccountResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
-import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
 import com.example.beatwell.data.remote.response.NewsResponse
 import com.example.beatwell.data.remote.response.PredictResponse
@@ -55,21 +57,22 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
-    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
+    fun login(username: String, password: String): LiveData<Result<LoginResponse>> {
         val result = MutableLiveData<Result<LoginResponse>>()
         result.value = Result.Loading
 
-        val client = apiService.login(email, password)
+        val client = apiService.login(LoginRequest(username, password))
         client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
-                    if (!responseBody?.error!!) {
-                        val loginData = responseBody.loginData
+                    if (responseBody != null) {
+                        val loginData = responseBody
+                        Log.d("LoginResponse", "RESPON BODY: ${responseBody}")
                         val user = UserModel(
-                            userId = loginData.id.toString(),
-                            email = loginData.email,
-                            name = loginData.name,
+//                            userId = loginData.id.toString(),
+//                            email = loginData.email,
+//                            name = loginData.name,
                             token = loginData.token,
                             isLogin = true
                         )
@@ -214,12 +217,12 @@ class UserRepository private constructor(
         return result
     }
 
-    fun predict(request: PredictRequest): LiveData<Result<PredictResponse>> {
+    fun predict(request: ChdRequest): LiveData<Result<PredictResponse>> {
         val result = MutableLiveData<Result<PredictResponse>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.getSession().collect {user->
-                val client = apiService.predict(
+                val client = ApiConfig.getModelApiService().predict(
                     request,
                     user.token
                 )
@@ -231,11 +234,12 @@ class UserRepository private constructor(
                        if (response.isSuccessful){
                            val body = response.body()
                            body?.let {
-                               if (!it.error){
-                                   result.postValue(Result.Success(it))
-                               }else{
-                                   result.value = Result.Error(it.message)
-                               }
+//                               if (!it.error){
+//                                   result.postValue(Result.Success(it))
+//                               }else{
+//                                   result.value = Result.Error(it.risk_label)
+//                               }
+                               Log.d("PredictResponse", "RESPON BODY: ${it}")
                            }
                        }else{
                            result.value = Result.Error(response.message())
@@ -250,12 +254,12 @@ class UserRepository private constructor(
         return result
     }
 
-    fun chatbot(message: String): LiveData<Result<MessageModel>> {
+    fun chatbot(prompt: String): LiveData<Result<MessageModel>> {
         val result = MutableLiveData<Result<MessageModel>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.getSession().collect{user->
-                val client = apiService.chatBot(message,user.token)
+                val client = apiService.chatBot(ChatBotRequest(prompt),user.token)
                 client.enqueue(object : Callback<ChatbotResponse>{
                     override fun onResponse(
                         call: Call<ChatbotResponse>,
@@ -264,7 +268,7 @@ class UserRepository private constructor(
                         if (response.isSuccessful){
                             val body = response.body()
                             body?.let {
-                                val text = MessageModel(it.data,false)
+                                val text = MessageModel(it.response,false)
                                 result.value = Result.Success(text)
                             }
                         }
@@ -282,47 +286,47 @@ class UserRepository private constructor(
         return result
     }
 
-    fun getHistory(): LiveData<Result<HistoryEntity>>{
-        val result = MutableLiveData<Result<HistoryEntity>>()
-        result.value = Result.Loading
-        CoroutineScope(Dispatchers.IO).launch {
-            userPreference.getSession().collect {user ->
-                if(user.token != ""){
-                    val client = apiService.getHistory(
-                        user.userId.toInt(),
-                        user.token
-                    )
-                    client.enqueue(object : Callback<HistoryResponse>{
-                        override fun onResponse(
-                            call: Call<HistoryResponse>,
-                            response: Response<HistoryResponse>
-                        ) {
-                            if (response.isSuccessful) {
-                                val body = response.body()
-                                body?.let {
-                                    val historyItems = it.historyItem.map {historyItem ->
-                                        HistoryEntity(
-                                            date = historyItem.createdAt,
-                                            prediction = historyItem.result
-                                        )
-                                    }
-                                    appExecutors.diskIO.execute {
-                                        historyDao.insertHistory(historyItems)
-                                    }
-                                }
-                            }
-                        }
-                        override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
-                            result.value = Result.Error(t.toString())
-                        }
-                    })
-                    val latestHistory = historyDao.getLastHistory()
-                    result.postValue(Result.Success(latestHistory))
-                }
-            }
-        }
-        return result
-    }
+//    fun getHistory(): LiveData<Result<HistoryEntity>>{
+//        val result = MutableLiveData<Result<HistoryEntity>>()
+//        result.value = Result.Loading
+//        CoroutineScope(Dispatchers.IO).launch {
+//            userPreference.getSession().collect {user ->
+//                if(user.token != ""){
+//                    val client = apiService.getHistory(
+//                        user.userId.toInt(),
+//                        user.token
+//                    )
+//                    client.enqueue(object : Callback<HistoryResponse>{
+//                        override fun onResponse(
+//                            call: Call<HistoryResponse>,
+//                            response: Response<HistoryResponse>
+//                        ) {
+//                            if (response.isSuccessful) {
+//                                val body = response.body()
+//                                body?.let {
+//                                    val historyItems = it.historyItem.map {historyItem ->
+//                                        HistoryEntity(
+//                                            date = historyItem.createdAt,
+//                                            prediction = historyItem.result
+//                                        )
+//                                    }
+//                                    appExecutors.diskIO.execute {
+//                                        historyDao.insertHistory(historyItems)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+//                            result.value = Result.Error(t.toString())
+//                        }
+//                    })
+//                    val latestHistory = historyDao.getLastHistory()
+//                    result.postValue(Result.Success(latestHistory))
+//                }
+//            }
+//        }
+//        return result
+//    }
 
     fun getAllHistory(): LiveData<List<HistoryEntity>> {
         return historyDao.getAllHistory()

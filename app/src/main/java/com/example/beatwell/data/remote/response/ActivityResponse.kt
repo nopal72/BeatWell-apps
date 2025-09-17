@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class ActivityResponse(
 
 	@field:SerializedName("data")
-	val activity: Activity,
+	val activity: List<Activity>,
 
 	@field:SerializedName("message")
 	val message: String,

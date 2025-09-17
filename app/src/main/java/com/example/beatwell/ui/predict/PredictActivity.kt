@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.beatwell.R
 import com.example.beatwell.data.Result
-import com.example.beatwell.data.pref.PredictRequest
+import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.databinding.ActivityPredictBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.result.ResultActivity
@@ -30,44 +30,59 @@ class PredictActivity : AppCompatActivity() {
     }
 
     private fun setRequest() {
-        val request = PredictRequest(
-            sex = when (binding.radioGender.checkedRadioButtonId) {
-                binding.radioPria.id -> "Male"
-                binding.radioWanita.id -> "Female"
-                else -> ""
-            },
+        val male = when (binding.radioGender.checkedRadioButtonId) {
+            binding.radioPria.id -> 1
+            binding.radioWanita.id -> 0
+            else -> 0
+        }
+
+//        val currentSmoker = when (binding.radioSmoke.checkedRadioButtonId) {
+//            binding.smokeTrue.id -> 1
+//            binding.smokeFalse.id -> 0
+//            else -> 0
+//        }
+
+        val height = binding.edHeight.text.toString().toDoubleOrNull() ?: 0.0
+        val weight = binding.edWeight.text.toString().toDoubleOrNull() ?: 0.0
+        val bmi = if (height > 0) weight / ((height / 100) * (height / 100)) else 0.0
+
+        val request = ChdRequest(
+            male = if (binding.radioGender.checkedRadioButtonId == binding.radioPria.id) 1 else 0,
             age = binding.edAge.text.toString().toIntOrNull() ?: 0,
-            cigsPerday = binding.edCig.text.toString().toIntOrNull() ?: 0,
+            currentSmoker = if (binding.radioCigs1.checkedRadioButtonId == binding.radioCigsYes.id) 1 else 0,
+            cigsPerDay = binding.edCig.text.toString().toIntOrNull() ?: 0,
             BPMeds = when (binding.radioBPMeds.checkedRadioButtonId) {
-                binding.BPMedsTrue.id -> true
-                binding.BPMedsFalse.id -> false
-                else -> false
+                binding.BPMedsTrue.id -> 1
+                binding.BPMedsFalse.id -> 0
+                else -> 0
             },
             prevalentStroke = when (binding.radioStroke.checkedRadioButtonId) {
-                binding.strokeTrue.id -> true
-                binding.strokeFalse.id -> false
-                else -> false
+                binding.strokeTrue.id -> 1
+                binding.strokeFalse.id -> 0
+                else -> 0
             },
             prevalentHyp = when (binding.radioPrevalentHyp.checkedRadioButtonId) {
-                binding.prevalentHypTrue.id -> true
-                binding.prevalentHypFalse.id -> false
-                else -> false
+                binding.prevalentHypTrue.id -> 1
+                binding.prevalentHypFalse.id -> 0
+                else -> 0
             },
             diabetes = when (binding.radioDiabetes.checkedRadioButtonId) {
-                binding.diabetesTrue.id -> true
-                binding.diabetesFalse.id -> false
-                else -> false
+                binding.diabetesTrue.id -> 1
+                binding.diabetesFalse.id -> 0
+                else -> 0
             },
-            totChol = binding.edChol.text.toString().toIntOrNull() ?: 0,
-            sysBP = binding.edSys.text.toString().toIntOrNull() ?: 0,
-            diaBP = binding.edDia.text.toString().toIntOrNull() ?: 0,
-            height = binding.edHeight.text.toString().toIntOrNull() ?: 0,
-            weight = binding.edWeight.text.toString().toIntOrNull() ?: 0,
-            heartRate = binding.edHeartRate.text.toString().toIntOrNull() ?: 0,
-            glucose = binding.edGlucose.text.toString().toIntOrNull() ?: 0
+            totChol = binding.edChol.text.toString().toDoubleOrNull() ?: 0.0,
+            sysBP = binding.edSys.text.toString().toDoubleOrNull() ?: 0.0,
+            diaBP = binding.edDia.text.toString().toDoubleOrNull() ?: 0.0,
+            BMI = bmi,
+            heartRate = binding.edHeartRate.text.toString().toDoubleOrNull() ?: 0.0,
+            glucose = binding.edGlucose.text.toString().toDoubleOrNull() ?: 0.0
         )
+
+        Log.d("PredictActivity", "Request: $request")
         predict(request)
     }
+
 
     private fun showConfirmationDialog() {
         val builder = AlertDialog.Builder(this)
@@ -86,7 +101,7 @@ class PredictActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun predict(request: PredictRequest) {
+    private fun predict(request: ChdRequest) {
         viewModel.predict(request).observe(this) { result ->
             when(result) {
                 is Result.Loading -> {
@@ -96,8 +111,9 @@ class PredictActivity : AppCompatActivity() {
                     binding.progressBar.visibility = android.view.View.GONE
                     val intentResult = Intent(this, ResultActivity::class.java)
                     val bundle = Bundle().apply {
-                        putInt("result", result.data.data.risk)
-                        putString("date", result.data.data.date)
+                        Log.d("PredictActivity", "Result Penyakitnya: ${result.data}")
+//                        putInt("result", result.data.riskScore.risk)
+//                        putString("date", result.data.riskScore.date)
                     }
                     intentResult.putExtras(bundle)
                     startActivity(intentResult)

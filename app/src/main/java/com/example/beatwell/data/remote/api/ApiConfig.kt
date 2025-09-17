@@ -10,6 +10,7 @@ object ApiConfig {
 
     private const val BASE_URL = BuildConfig.BASE_URL
     private const val NEWS_URL = BuildConfig.NEWS_URL
+    private const val MODEL_API = BuildConfig.MODEL_URL
 
     fun getApiService(): ApiService {
         val loggingInterceptor =
@@ -20,6 +21,21 @@ object ApiConfig {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ApiService::class.java)
+    }
+
+    fun getModelApiService(): ApiService {
+        val loggingInterceptor =
+            if(BuildConfig.DEBUG) { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) }
+            else { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE) }
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(MODEL_API)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

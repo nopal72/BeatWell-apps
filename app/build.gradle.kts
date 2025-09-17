@@ -17,9 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://beatwell-api-4q6lnroooq-et.a.run.app\"")
+        buildConfigField("String", "BASE_URL", "\"https://chd-phi.vercel.app\"")
         buildConfigField("String", "NEWS_URL", "\"https://newsapi.org/\"")
         buildConfigField("String", "NEWS_API_KEY", "\"8b5c302a4ca54e198d88dc1d18b9c37b\"")
+        buildConfigField("String", "MODEL_URL", "\"https://chd-model-api.vercel.app\"")
     }
 
     buildTypes {
@@ -41,6 +42,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
 }
 
@@ -57,6 +59,8 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.activity)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,10 +74,10 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation(libs.retrofit)
-    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.converter.gson.v230)
+    implementation(libs.converter.gson)
     implementation(libs.glide)
 
     implementation(libs.androidx.datastore.preferences)

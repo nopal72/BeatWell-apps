@@ -3,6 +3,7 @@ package com.example.beatwell.ui.home
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,13 +39,13 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), ChatBotActivity::class.java))
         }
         binding.refresh.setOnRefreshListener {
-            setHistory()
+//            setHistory()
             setActivity()
             setTrivia()
             binding.refresh.isRefreshing = false
         }
 
-        setHistory()
+//        setHistory()
         setTrivia()
         setActivity()
 
@@ -58,7 +59,13 @@ class HomeFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
-                    setActivityCard(result.data.activity)
+                    binding.progressBar.visibility = View.GONE
+                    val activities = result.data.activity
+                    if (activities != null){
+                        Log.d("Activity", "activities: ${activities[0]}")
+                        val activity = activities[0]
+                        setActivityCard(activity)
+                    }
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -83,8 +90,13 @@ class HomeFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
+                    val triviaList = result.data.triviaData
+                    if (triviaList.isNotEmpty()){
+                        val trivia = triviaList[0].trivia
+                        Log.d("Trivia","triviaList nyaaaaa: ${trivia}")
+                        binding.tvTrivia.text = trivia
+                    }
                     binding.progressBar.visibility = View.GONE
-                    binding.tvTrivia.text = result.data.triviaData.trivia
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -93,26 +105,26 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setHistory() {
-        viewModel.getHistory().observe(viewLifecycleOwner) {result->
-            when(result) {
-                is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    if (result.data != null){
-                        binding.textDate.text = dateFormater(result.data.date)
-                        binding.textResult.text = getString(R.string.prediction_result, result.data.prediction.toString())
-                    } else {
-                        binding.textResult.text = "-"
-                        binding.textDate.text = getString(R.string.text_no_data)
-                    }
-                }
-                is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                }
-            }
-        }
-    }
+//    private fun setHistory() {
+//        viewModel.getHistory().observe(viewLifecycleOwner) {result->
+//            when(result) {
+//                is Result.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+//                }
+//                is Result.Success -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    if (result.data != null){
+//                        binding.textDate.text = dateFormater(result.data.date)
+//                        binding.textResult.text = getString(R.string.prediction_result, result.data.prediction.toString())
+//                    } else {
+//                        binding.textResult.text = "-"
+//                        binding.textDate.text = getString(R.string.text_no_data)
+//                    }
+//                }
+//                is Result.Error -> {
+//                    binding.progressBar.visibility = View.GONE
+//                }
+//            }
+//        }
+//    }
 }

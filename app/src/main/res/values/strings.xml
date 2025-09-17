@@ -30,7 +30,7 @@
     <string name="name">Name</string>
     <string name="register_success">Registration Successful</string>
     <string name="prediction_result">%s%%</string>
-    <string name="prediction_date">Prediction Date</string>
+    <string name="prediction_date">08 September 2025</string>
     <string name="begin_prediction">Start Prediction</string>
     <string name="last_prediction_result_heading">Last Prediction Result</string>
     <string name="last_prediction_result_desc">Your last prediction result</string>

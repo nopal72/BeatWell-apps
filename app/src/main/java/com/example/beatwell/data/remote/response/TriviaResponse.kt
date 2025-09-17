@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class TriviaResponse(
 
 	@field:SerializedName("data")
-	val triviaData: TriviaData,
+	val triviaData: List<TriviaData>,
 
 	@field:SerializedName("message")
 	val message: String,

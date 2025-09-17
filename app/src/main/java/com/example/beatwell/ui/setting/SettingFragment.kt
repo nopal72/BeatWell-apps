@@ -137,8 +137,8 @@ class SettingFragment : Fragment() {
     private fun settingUser() {
         CoroutineScope(Dispatchers.IO).launch {
             viewModel.getUser().collect{user->
-                binding.tvName.text = user.name
-                binding.tvEmail.text = user.email
+                binding.tvName.text = "berhasil masuk"
+                binding.tvEmail.text = "berhasil masuk"
             }
         }
     }

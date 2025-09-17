@@ -30,9 +30,9 @@ class LoginActivity : AppCompatActivity() {
         setAnimation()
 
         binding.btnSignIn.setOnClickListener {
-            val email = binding.edLoginEmail.text.toString()
+            val username = binding.edLoginUsername.text.toString()
             val password = binding.edLoginPassword.text.toString()
-            login(email, password)
+            login(username, password)
         }
         binding.textSignup.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -65,8 +65,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login(email: String, password: String) {
-        viewModel.login(email, password).observe(this) { result ->
+    private fun login(username: String, password: String) {
+        viewModel.login(username, password).observe(this) { result ->
             when (result) {
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
