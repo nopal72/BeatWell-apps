@@ -40,5 +40,5 @@ fun dateNumberFormater(date: String): String {
 
 fun getDate(): String {
     val now = ZonedDateTime.now()
-    return now.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    return now.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) //
 }
