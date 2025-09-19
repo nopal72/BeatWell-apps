@@ -6,9 +6,11 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.beatwell.R
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+
 
 fun getProfileIcon(context: Context, isLocalUser: Boolean): Drawable {
     val drawable =
@@ -29,8 +31,14 @@ fun dateFormater(date: String): String {
     val outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
     return parsedDate.format(outputFormatter)
 }
+
 fun dateNumberFormater(date: String): String {
     val parsedDate = ZonedDateTime.parse(date)
     val outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale("id", "ID"))
     return parsedDate.format(outputFormatter)
+}
+
+fun getDate(): String {
+    val now = ZonedDateTime.now()
+    return now.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 }

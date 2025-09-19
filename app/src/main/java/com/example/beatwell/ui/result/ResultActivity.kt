@@ -12,6 +12,7 @@ import com.example.beatwell.databinding.ActivityResultBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.utils.dateFormater
 import com.example.beatwell.utils.dateNumberFormater
+import com.example.beatwell.utils.getDate
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -34,7 +35,7 @@ class ResultActivity : AppCompatActivity() {
         if (bundle != null){
             val result = bundle.getInt("result")
             val date = bundle.getString("date")
-            val newData = HistoryEntity(date = date.toString(), prediction = result)
+//            val newData = HistoryEntity(date = date.toString(), prediction = result)
             setData(result, date.toString())
             setHistoryChart()
         }

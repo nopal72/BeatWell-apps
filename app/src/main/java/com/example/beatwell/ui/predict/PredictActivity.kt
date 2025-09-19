@@ -13,6 +13,7 @@ import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.databinding.ActivityPredictBinding
 import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.result.ResultActivity
+import com.example.beatwell.utils.getDate
 
 class PredictActivity : AppCompatActivity() {
 
@@ -111,9 +112,9 @@ class PredictActivity : AppCompatActivity() {
                     binding.progressBar.visibility = android.view.View.GONE
                     val intentResult = Intent(this, ResultActivity::class.java)
                     val bundle = Bundle().apply {
-                        Log.d("PredictActivity", "Result Penyakitnya: ${result.data}")
-//                        putInt("result", result.data.riskScore.risk)
-//                        putString("date", result.data.riskScore.date)
+//                        Log.d("PredictActivity", "Result Penyakitnya: ${result.data}")
+                        putInt("result", result.data.riskScore.toInt())
+                        putString("date", getDate().toString())
                     }
                     intentResult.putExtras(bundle)
                     startActivity(intentResult)
@@ -121,8 +122,8 @@ class PredictActivity : AppCompatActivity() {
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = android.view.View.GONE
-                    Log.e("PredictActivity", "Error: ${result.error}")
-                    showToast(result.error)
+                    Log.e("PredictActivity", "Error ada error: ${result.error}")
+                    showToast("ada error"+result.error)
                 }
             }
         }

@@ -234,12 +234,8 @@ class UserRepository private constructor(
                        if (response.isSuccessful){
                            val body = response.body()
                            body?.let {
-//                               if (!it.error){
-//                                   result.postValue(Result.Success(it))
-//                               }else{
-//                                   result.value = Result.Error(it.risk_label)
-//                               }
-                               Log.d("PredictResponse", "RESPON BODY: ${it}")
+                               result.value = Result.Success(it)
+//                               Log.d("PredictResponse", "RESPON BODY: ${it}")
                            }
                        }else{
                            result.value = Result.Error(response.message())

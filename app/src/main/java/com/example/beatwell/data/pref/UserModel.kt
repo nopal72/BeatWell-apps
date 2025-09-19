@@ -37,6 +37,6 @@ data class EditAccountRequest(
 )
 
 data class LoginRequest(
-    val username: String,
+    val name: String,
     val password: String
 )
