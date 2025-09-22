@@ -20,6 +20,7 @@ import com.example.beatwell.data.remote.response.DeleteUserResponse
 import com.example.beatwell.data.remote.response.EditAccountResponse
 import com.example.beatwell.data.remote.response.FoodDetailResponse
 import com.example.beatwell.data.remote.response.FoodsResponse
+import com.example.beatwell.data.remote.response.HistoryResponse
 import com.example.beatwell.data.remote.response.LoginResponse
 import com.example.beatwell.data.remote.response.NewsResponse
 import com.example.beatwell.data.remote.response.PredictResponse
@@ -282,47 +283,47 @@ class UserRepository private constructor(
         return result
     }
 
-//    fun getHistory(): LiveData<Result<HistoryEntity>>{
-//        val result = MutableLiveData<Result<HistoryEntity>>()
-//        result.value = Result.Loading
-//        CoroutineScope(Dispatchers.IO).launch {
-//            userPreference.getSession().collect {user ->
-//                if(user.token != ""){
-//                    val client = apiService.getHistory(
-//                        user.userId.toInt(),
-//                        user.token
-//                    )
-//                    client.enqueue(object : Callback<HistoryResponse>{
-//                        override fun onResponse(
-//                            call: Call<HistoryResponse>,
-//                            response: Response<HistoryResponse>
-//                        ) {
-//                            if (response.isSuccessful) {
-//                                val body = response.body()
-//                                body?.let {
-//                                    val historyItems = it.historyItem.map {historyItem ->
-//                                        HistoryEntity(
-//                                            date = historyItem.createdAt,
-//                                            prediction = historyItem.result
-//                                        )
-//                                    }
-//                                    appExecutors.diskIO.execute {
-//                                        historyDao.insertHistory(historyItems)
-//                                    }
-//                                }
-//                            }
-//                        }
-//                        override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
-//                            result.value = Result.Error(t.toString())
-//                        }
-//                    })
-//                    val latestHistory = historyDao.getLastHistory()
-//                    result.postValue(Result.Success(latestHistory))
-//                }
-//            }
-//        }
-//        return result
-//    }
+    fun getHistory(): LiveData<Result<HistoryEntity>>{
+        val result = MutableLiveData<Result<HistoryEntity>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect {user ->
+                if(user.token != ""){
+                    val client = apiService.getHistory(
+                        user.userId.toInt(),
+                        user.token
+                    )
+                    client.enqueue(object : Callback<HistoryResponse>{
+                        override fun onResponse(
+                            call: Call<HistoryResponse>,
+                            response: Response<HistoryResponse>
+                        ) {
+                            if (response.isSuccessful) {
+                                val body = response.body()
+                                body?.let {
+                                    val historyItems = it.historyItem.map {historyItem ->
+                                        HistoryEntity(
+                                            date = historyItem.createdAt,
+                                            prediction = historyItem.result
+                                        )
+                                    }
+                                    appExecutors.diskIO.execute {
+                                        historyDao.insertHistory(historyItems)
+                                    }
+                                }
+                            }
+                        }
+                        override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+                            result.value = Result.Error(t.toString())
+                        }
+                    })
+                    val latestHistory = historyDao.getLastHistory()
+                    result.postValue(Result.Success(latestHistory))
+                }
+            }
+        }
+        return result
+    }
 
     fun getAllHistory(): LiveData<List<HistoryEntity>> {
         return historyDao.getAllHistory()

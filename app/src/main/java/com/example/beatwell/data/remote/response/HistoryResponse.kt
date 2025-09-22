@@ -20,15 +20,16 @@ data class HistoryResponse(
 @Parcelize
 data class HistoryItem(
 
-	@field:SerializedName("result")
-	val result: Int,
-
-	@field:SerializedName("createdAt")
-	val createdAt: String,
-
 	@field:SerializedName("id")
 	val id: Int,
 
-	@field:SerializedName("userId")
-	val userId: Int
+	@field:SerializedName("created_at")
+	val createdAt: String,
+
+	@field:SerializedName("user_id")
+	val userId: Int,
+
+	@field:SerializedName("result")
+	val result: Double
+
 ) : Parcelable
