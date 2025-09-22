@@ -9,6 +9,7 @@ import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.data.pref.EditAccountRequest
 import com.example.beatwell.data.pref.LoginRequest
 import com.example.beatwell.data.pref.MessageModel
+import com.example.beatwell.data.pref.RegisterRequest
 import com.example.beatwell.data.pref.UserModel
 import com.example.beatwell.data.pref.UserPreference
 import com.example.beatwell.data.remote.api.ApiConfig
@@ -67,13 +68,12 @@ class UserRepository private constructor(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        val loginData = responseBody
                         Log.d("LoginResponse", "RESPON BODY: ${responseBody}")
                         val user = UserModel(
-//                            userId = loginData.id.toString(),
-//                            email = loginData.email,
-//                            name = loginData.name,
-                            token = loginData.token,
+                            userId = responseBody.userData.id.toString(),
+                            email = responseBody.userData.email,
+                            name = responseBody.userData.name,
+                            token = responseBody.token,
                             isLogin = true
                         )
                         CoroutineScope(Dispatchers.IO).launch {
@@ -99,7 +99,7 @@ class UserRepository private constructor(
     fun register(name: String, email: String, password: String): LiveData<Result<RegisterResponse>> {
         val result = MutableLiveData<Result<RegisterResponse>>()
         result.value = Result.Loading
-        val client = apiService.register(name,email,password)
+        val client = apiService.register(RegisterRequest(email = email, name = name, password = password))
         client.enqueue(object : Callback<RegisterResponse>{
             override fun onResponse(
                 call: Call<RegisterResponse>,

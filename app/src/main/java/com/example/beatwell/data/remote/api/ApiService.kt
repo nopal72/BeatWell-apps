@@ -5,6 +5,7 @@ import com.example.beatwell.data.pref.ChatBotRequest
 import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.data.pref.EditAccountRequest
 import com.example.beatwell.data.pref.LoginRequest
+import com.example.beatwell.data.pref.RegisterRequest
 import com.example.beatwell.data.remote.response.ActivityResponse
 import com.example.beatwell.data.remote.response.ChatbotResponse
 import com.example.beatwell.data.remote.response.DeleteUserResponse
@@ -41,7 +42,7 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<FoodDetailResponse>
 
-    @GET("/users/{id}/histories")
+    @GET("/users/histories/{id}")
     fun getHistory(
         @Path("id") id: Int,
         @Header("Authorization") token: String
@@ -55,11 +56,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("/register")
     fun register(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Body request: RegisterRequest
     ): Call<RegisterResponse>
-
 
     @POST("/chat")
     fun chatBot(

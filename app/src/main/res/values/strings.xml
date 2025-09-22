@@ -111,4 +111,6 @@
     <string name="lamp_image">lamp image</string>
     <string name="icon">icon</string>
     <string name="read">read</string>
+    <string name="nama">Nama</string>
+    <string name="save">save</string>
 </resources>

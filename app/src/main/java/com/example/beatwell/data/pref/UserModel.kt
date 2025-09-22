@@ -1,9 +1,9 @@
 package com.example.beatwell.data.pref
 
 data class UserModel (
-//    val userId: String,
-//    val email: String,
-//    val name: String,
+    val userId: String,
+    val email: String,
+    val name: String,
     val token: String,
     val isLogin: Boolean
 )
@@ -38,5 +38,11 @@ data class EditAccountRequest(
 
 data class LoginRequest(
     val name: String,
+    val password: String
+)
+
+data class RegisterRequest(
+    val name: String,
+    val email: String,
     val password: String
 )

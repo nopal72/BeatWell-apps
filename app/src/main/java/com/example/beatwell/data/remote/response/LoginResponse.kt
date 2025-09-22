@@ -10,18 +10,25 @@ data class LoginResponse(
 	@SerializedName("message")
 	val message: String,
 
-	val token: String
+	val token: String,
 
-//	@SerializedName("error")
-//	val error: Boolean,
-//
-//	@SerializedName("data")
-//	val loginData: LoginData
+	@SerializedName("error")
+	val error: Boolean,
+
+	@SerializedName("user")
+	val userData: UserData
 ) : Parcelable
 
 @Parcelize
-data class LoginData(
+data class UserData(
 
-	@field:SerializedName("token")
-	val token: String
+	@field:SerializedName("id")
+	val id: Int,
+
+	@field:SerializedName("name")
+	val name: String,
+
+	@field:SerializedName("email")
+	val email: String
+
 ) : Parcelable
