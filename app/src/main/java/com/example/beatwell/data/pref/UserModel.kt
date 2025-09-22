@@ -46,3 +46,8 @@ data class RegisterRequest(
     val email: String,
     val password: String
 )
+
+data class HistoryRequest(
+    val userId: Int,
+    val result: Double
+)

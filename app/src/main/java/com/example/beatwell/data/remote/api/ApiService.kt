@@ -4,6 +4,7 @@ import com.example.beatwell.BuildConfig
 import com.example.beatwell.data.pref.ChatBotRequest
 import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.data.pref.EditAccountRequest
+import com.example.beatwell.data.pref.HistoryRequest
 import com.example.beatwell.data.pref.LoginRequest
 import com.example.beatwell.data.pref.RegisterRequest
 import com.example.beatwell.data.remote.response.ActivityResponse
@@ -45,6 +46,12 @@ interface ApiService {
     @GET("/users/histories/{id}")
     fun getHistory(
         @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): Call<HistoryResponse>
+
+    @POST("/history")
+    fun addHistory(
+        @Body request: HistoryRequest,
         @Header("Authorization") token: String
     ): Call<HistoryResponse>
 

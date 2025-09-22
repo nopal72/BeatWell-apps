@@ -7,6 +7,7 @@ import com.example.beatwell.data.entity.HistoryEntity
 import com.example.beatwell.data.pref.ChatBotRequest
 import com.example.beatwell.data.pref.ChdRequest
 import com.example.beatwell.data.pref.EditAccountRequest
+import com.example.beatwell.data.pref.HistoryRequest
 import com.example.beatwell.data.pref.LoginRequest
 import com.example.beatwell.data.pref.MessageModel
 import com.example.beatwell.data.pref.RegisterRequest
@@ -324,6 +325,39 @@ class UserRepository private constructor(
         }
         return result
     }
+
+    fun addHistory(request: HistoryRequest): MutableLiveData<Result<HistoryResponse>> {
+        val result = MutableLiveData<Result<HistoryResponse>>()
+        result.value = Result.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            userPreference.getSession().collect { user->
+                val client = ApiConfig.getApiService().addHistory(
+                    request,
+                    user.token
+                )
+                client.enqueue(object : Callback<HistoryResponse>{
+                    override fun onResponse(
+                        call: Call<HistoryResponse>,
+                        response: Response<HistoryResponse>
+                    ) {
+                      if (response.isSuccessful){
+                          val body = response.body()
+                          body?.let {
+                              result.value = Result.Success(it)
+                          }
+                      }
+                    }
+
+                    override fun onFailure(p0: Call<HistoryResponse>, t: Throwable) {
+                        result.value = Result.Error(t.toString())
+                    }
+                })
+            }
+        }
+
+        return result
+    }
+
 
     fun getAllHistory(): LiveData<List<HistoryEntity>> {
         return historyDao.getAllHistory()

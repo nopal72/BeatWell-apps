@@ -8,13 +8,13 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "history")
 @Parcelize
-data class HistoryEntity (
+data class HistoryEntity(
 
     @PrimaryKey
     @field:ColumnInfo(name = "date")
     val date: String,
 
     @field:ColumnInfo(name = "prediction")
-    val prediction: Int,
+    val prediction: Double,
 
-): Parcelable
+    ): Parcelable
