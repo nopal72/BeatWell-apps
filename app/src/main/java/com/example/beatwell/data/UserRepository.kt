@@ -70,7 +70,8 @@ class UserRepository private constructor(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        Log.d("LoginResponse", "RESPON BODY: ${responseBody}")
+                        Log.d("LoginResponse", "RESPON BODY DARI USER: ${responseBody}")
+                        Log.d("DataUser", "DATA DARI USER: ${responseBody.userData}")
                         val user = UserModel(
                             userId = responseBody.userData.id.toString(),
                             email = responseBody.userData.email,
@@ -326,13 +327,13 @@ class UserRepository private constructor(
         return result
     }
 
-    fun addHistory(request: HistoryRequest): MutableLiveData<Result<HistoryResponse>> {
+    fun addHistory(request: Double): MutableLiveData<Result<HistoryResponse>> {
         val result = MutableLiveData<Result<HistoryResponse>>()
         result.value = Result.Loading
         CoroutineScope(Dispatchers.IO).launch {
             userPreference.getSession().collect { user->
                 val client = ApiConfig.getApiService().addHistory(
-                    request,
+                    HistoryRequest(user.userId.toInt(), request),
                     user.token
                 )
                 client.enqueue(object : Callback<HistoryResponse>{
