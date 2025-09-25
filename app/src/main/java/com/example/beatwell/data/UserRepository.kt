@@ -302,6 +302,7 @@ class UserRepository private constructor(
                         ) {
                             if (response.isSuccessful) {
                                 val body = response.body()
+                                Log.d("HistoryResponse", "RESPON BODY History: ${body}")
                                 body?.let {
                                     val historyItems = it.historyItem.map {historyItem ->
                                         HistoryEntity(
@@ -358,7 +359,6 @@ class UserRepository private constructor(
 
         return result
     }
-
 
     fun getAllHistory(): LiveData<List<HistoryEntity>> {
         return historyDao.getAllHistory()

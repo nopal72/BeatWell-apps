@@ -43,7 +43,7 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<FoodDetailResponse>
 
-    @GET("/users/histories/{id}")
+    @GET("/histories/{id}")
     fun getHistory(
         @Path("id") id: Int,
         @Header("Authorization") token: String
