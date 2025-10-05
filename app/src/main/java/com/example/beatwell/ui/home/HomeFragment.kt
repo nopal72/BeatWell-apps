@@ -17,6 +17,7 @@ import com.example.beatwell.ui.ViewModelFactory
 import com.example.beatwell.ui.chatbot.ChatBotActivity
 import com.example.beatwell.ui.predict.PredictActivity
 import com.example.beatwell.utils.dateFormater
+import kotlin.time.times
 
 class HomeFragment : Fragment() {
 
@@ -62,7 +63,7 @@ class HomeFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     val activities = result.data.activity
                     if (activities != null){
-                        Log.d("Activity", "activities: ${activities[0]}")
+//                        Log.d("Activity", "activities: ${activities[0]}")
                         val activity = activities[0]
                         setActivityCard(activity)
                     }
@@ -75,9 +76,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setActivityCard(activity: Activity) {
-        Glide.with(requireContext())
-            .load(activity.image)
-            .into(binding.ivActivity)
+//        Glide.with(requireContext())
+//            .load(activity.image)
+//            .into(binding.ivActivity)
 
         binding.tvActivity.text = activity.name
         binding.tvActivityDescription.text = activity.detail
@@ -113,8 +114,14 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.textDate.text = dateFormater(result.data.date)
-                    binding.textResult.text = getString(R.string.prediction_result, result.data.prediction.toString())
+                    val history = result.data
+                    if (history != null) {
+                        binding.textDate.text = dateFormater(history.date)
+                        binding.textResult.text = getString(R.string.prediction_result, (history.prediction*100).toString())
+                    } else {
+                        binding.textDate.text = "-"
+                        binding.textResult.text = getString(R.string.prediction_result, "belum ada data")
+                    }
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE

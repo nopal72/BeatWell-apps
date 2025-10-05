@@ -10,5 +10,5 @@ import com.example.beatwell.data.Result
 class ResultViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun getHistory(): LiveData<List<HistoryEntity>> = userRepository.getAllHistory()
 
-    fun addHistory(request: Int): LiveData<Result<HistoryResponse>> = userRepository.addHistory(request.toDouble())
+    fun addHistory(request: Float): LiveData<Result<HistoryResponse>> = userRepository.addHistory(request.toDouble())
 }

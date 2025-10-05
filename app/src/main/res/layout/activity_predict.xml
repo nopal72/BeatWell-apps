@@ -100,7 +100,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="@string/male"
+                android:text="@string/yes"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 
@@ -114,7 +114,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:gravity="center"
-                android:text="@string/female"
+                android:text="@string/no"
                 android:textColor="@color/selector_radio_button"
                 android:textSize="20sp" />
 

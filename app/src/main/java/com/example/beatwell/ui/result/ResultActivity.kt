@@ -3,6 +3,7 @@ package com.example.beatwell.ui.result
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -33,9 +34,10 @@ class ResultActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         if (bundle != null){
-            val result = bundle.getInt("result")
+            val result = bundle.getFloat("result")
             val date = bundle.getString("date")
 //            val newData = HistoryEntity(date = date.toString(), prediction = result)
+            Log.d("ResultActivity", "bundle result: $result, date: $date")
             setData(result, date.toString())
             setHistoryChart()
 
@@ -44,7 +46,7 @@ class ResultActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener { moveToHistory() }
     }
 
-    private fun addHistory(result: Int) {
+    private fun addHistory(result: Float) {
         viewModel.addHistory(result).observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -58,6 +60,7 @@ class ResultActivity : AppCompatActivity() {
                 is Result.Success -> {
                     binding.progressBar.visibility = android.view.View.GONE
                     showToast("Berhasil disimpan")
+                    moveToHistory()
                 }
             }
         }
@@ -104,8 +107,9 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun setData(result: Int, date: String) {
-        binding.tvPredict.text = getString(R.string.prediction_result, result.toString())
+    private fun setData(result: Float, date: String) {
+
+        binding.tvPredict.text = getString(R.string.prediction_result, (result*100).toString())
         binding.tvDate.text = dateFormater(date)
     }
 

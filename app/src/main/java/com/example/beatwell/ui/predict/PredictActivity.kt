@@ -113,7 +113,7 @@ class PredictActivity : AppCompatActivity() {
                     val intentResult = Intent(this, ResultActivity::class.java)
                     val bundle = Bundle().apply {
 //                        Log.d("PredictActivity", "Result Penyakitnya: ${result.data}")
-                        putInt("result", result.data.riskScore.toInt())
+                        putFloat("result", result.data.riskScore.toFloat())
                         putString("date", getDate().toString())
                     }
                     intentResult.putExtras(bundle)
