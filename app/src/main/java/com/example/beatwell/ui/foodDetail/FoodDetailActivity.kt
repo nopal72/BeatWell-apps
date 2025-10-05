@@ -1,6 +1,7 @@
 package com.example.beatwell.ui.foodDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,8 @@ class FoodDetailActivity : AppCompatActivity() {
         binding = ActivityFoodDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Log.d("FoodDetailActivity", "onCreate detail food dipanggil")
+
         val bundle = intent.extras
         if (bundle != null) {
             val id = bundle.getInt("id")
@@ -34,6 +37,7 @@ class FoodDetailActivity : AppCompatActivity() {
                         is Result.Success ->{
                             binding.progressBar.visibility = View.GONE
                             val data = result.data.foodData
+                            Log.d("FoodDetailActivity", "makananyaaaaa: $data")
                             setFoodDetail(data)
                         }
                         is Result.Error ->{
@@ -46,21 +50,22 @@ class FoodDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun setFoodDetail(data: FoodData) {
+    private fun setFoodDetail(data: List<FoodData>) {
+        Log.d("FoodDetailActivity", "setFoodDetail dipanggil")
         Glide.with(this)
-            .load(data.image)
+            .load(data[0].image)
             .into(binding.ivDetailFood)
         binding.apply {
-            val recipeStrings = data.recipe.mapIndexed { index, recipe ->
+            val recipeStrings = data[0].recipe.mapIndexed { index, recipe ->
                 "${index + 1}. $recipe"
             }.joinToString(separator = "\n")
             tvRecipe.text = recipeStrings
 
-            val ingredientStrings = data.ingredient.mapIndexed { index, ingredient ->
+            val ingredientStrings = data[0].ingredient.mapIndexed { index, ingredient ->
                 "${index + 1}. $ingredient"
             }.joinToString(separator = "\n")
             tvIngredients.text = ingredientStrings
-            tvFoodName.text = data.name
+            tvFoodName.text = data[0].name
         }
     }
 

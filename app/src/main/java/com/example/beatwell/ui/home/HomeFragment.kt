@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
                     val history = result.data
                     if (history != null) {
                         binding.textDate.text = dateFormater(history.date)
-                        binding.textResult.text = getString(R.string.prediction_result, (history.prediction*100).toString())
+                        binding.textResult.text = getString(R.string.prediction_result, String.format("%.2f%%", history.prediction * 100))
                     } else {
                         binding.textDate.text = "-"
                         binding.textResult.text = getString(R.string.prediction_result, "belum ada data")

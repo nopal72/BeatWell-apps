@@ -88,7 +88,7 @@ class HistoryFragment : Fragment() {
         viewModel.getAlHistory().observe(viewLifecycleOwner) { historyItem ->
             setHistoryData(historyItem)
             setChart(historyItem)
-            Log.d("HistoryFragment","history: $historyItem")
+//            Log.d("HistoryFragment","history: $historyItem")
         }
     }
 

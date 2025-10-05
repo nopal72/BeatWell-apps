@@ -14,8 +14,7 @@ class HistoryAdapter: ListAdapter<HistoryEntity, HistoryAdapter.MyViewHolder>(DI
         fun bind(data: HistoryEntity){
             binding.tvDate.text = dateFormater(data.date)
             binding.tvStatus.text = buildString {
-                append(data.prediction.toString())
-                append("%")
+                append(String.format("%.2f%%", data.prediction * 100))
             }
         }
 

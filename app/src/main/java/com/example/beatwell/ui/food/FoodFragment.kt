@@ -53,7 +53,7 @@ class FoodFragment : Fragment() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    Log.d("FoodFragment", "Data received: $result")
+//                    Log.d("FoodFragment", "Data received: $result")
                     val food = result.data.foodItem
                     setFoodsData(food)
                 }

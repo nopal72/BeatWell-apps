@@ -409,6 +409,7 @@ class UserRepository private constructor(
                             val body = response.body()
                             body?.let {
                                 result.value = Result.Success(it)
+                                Log.d("FoodDetailResponse", "RESPON BODY DETAIL FOOD: ${it}")
                             }
                         }else{
                             result.value = Result.Error(response.message())

@@ -86,10 +86,17 @@
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:startIconDrawable="@drawable/ic_person">
 
-        <com.example.beatwell.ui.customView.CustomEditEmail
+<!--        <com.example.beatwell.ui.customView.CustomEditEmail-->
+<!--            android:id="@+id/ed_login_username"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="textEmailAddress" />-->
+
+        <EditText
             android:id="@+id/ed_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:importantForAutofill="no"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
